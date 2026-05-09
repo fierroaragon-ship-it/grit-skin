@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const imagePaths = {
   hero: "/images/grit-hero-workers.png",
@@ -6,115 +6,382 @@ const imagePaths = {
   logo: "/images/grit-logo.png"
 };
 
-const problemCards = [
-  {
-    icon: "◒",
-    title: "Piel grasa",
-    text: "Para brillo, sudor y sensación pesada durante el día."
+const copy = {
+  es: {
+    nav: {
+      inicio: "Inicio",
+      rutinas: "Rutinas",
+      problemas: "Problemas",
+      videos: "Videos",
+      reviews: "Reviews",
+      comunidad: "Comunidad",
+      cta: "Encuentra tu rutina"
+    },
+    hero: {
+      eyebrow: "Piel grit. Vida real.",
+      title1: "Cuidado real",
+      title2: "para piel de trabajo.",
+      text:
+        "Para quienes viven entre construcción, logística, oficina, sol, polvo, sudor y clima extremo. Grit Skin nace para hombres que trabajan duro y también quieren cuidar su piel.",
+      button1: "Ver rutinas",
+      button2: "Explorar productos",
+      quote: "Aunque tengamos cuero en vez de piel, también merece cuidárnosla.",
+      foundedBy: "Fundado por",
+      founder: "Miguel Fierro",
+      founderRole: "Fundador de Grit Skin"
+    },
+    problems: {
+      kicker: "Tu piel, tu entorno, tu rutina",
+      title: "Elige el problema principal y encuentra lo que tu piel necesita.",
+      cards: [
+        {
+          icon: "◒",
+          title: "Piel grasa",
+          text: "Para brillo, sudor y sensación pesada durante el día."
+        },
+        {
+          icon: "⌁",
+          title: "Después del rasurado",
+          text: "Para ardor, irritación y granitos por rastrillo."
+        },
+        {
+          icon: "☀",
+          title: "Sol y obra",
+          text: "Para quienes trabajan bajo sol, polvo y calor."
+        },
+        {
+          icon: "▭",
+          title: "Oficina y estrés",
+          text: "Para piel cansada, opaca y con mala cara."
+        },
+        {
+          icon: "❄",
+          title: "Frío y resequedad",
+          text: "Para climas duros, viento y piel tirante."
+        },
+        {
+          icon: "✣",
+          title: "Sudor y polvo",
+          text: "Para jornadas largas, logística, manejo y trabajo físico."
+        }
+      ]
+    },
+    founder: {
+      label: "Nuestra historia",
+      title: "Creado desde la experiencia.",
+      p1:
+        "Soy Miguel Fierro, fundador de Grit Skin. He estado en ambientes de construcción, logística y oficina en Canadá, México, Sudamérica y algunas partes de Europa. Conozco de primera mano cómo el sol, el polvo, el frío, el sudor y el estrés afectan la piel del hombre que trabaja.",
+      p2:
+        "Grit Skin nace para simplificar el cuidado masculino con rutinas efectivas, productos confiables y educación real. Sin promesas vacías, sin complicaciones y sin hacer del cuidado personal algo ajeno al hombre.",
+      trusts: [
+        {
+          icon: "★",
+          title: "Experiencia real",
+          text: "En obras, oficinas, logística y entornos de trabajo exigentes."
+        },
+        {
+          icon: "◎",
+          title: "Asesorado por profesionales",
+          text: "Con apoyo de especialistas de belleza de Suiza, México y Colombia."
+        },
+        {
+          icon: "◇",
+          title: "Soluciones simples",
+          text: "Rutinas prácticas para hombres reales y resultados visibles."
+        },
+        {
+          icon: "▰",
+          title: "Confianza y calidad",
+          text: "Productos seleccionados por utilidad, experiencia y criterio."
+        }
+      ]
+    },
+    routines: {
+      kicker: "Rutinas simples. Resultados reales.",
+      title: "Empieza con tres pasos. Después ajustamos según tu piel.",
+      button: "Ver productos",
+      productLabel: "Producto afiliado",
+      routines: [
+        {
+          number: "01",
+          title: "Rutina esencial",
+          description: "Lo básico para mantener tu piel limpia, hidratada y protegida.",
+          steps: ["Limpia", "Hidrata", "Protege"],
+          products: ["Limpiador facial", "Hidratante ligera", "Protector solar"]
+        },
+        {
+          number: "02",
+          title: "Rutina de recuperación",
+          description: "Ideal después de jornadas intensas, rasurado, sol o polvo.",
+          steps: ["Limpia", "Calma", "Hidrata"],
+          products: ["Limpiador suave", "Tónico calmante", "Gel hidratante"]
+        },
+        {
+          number: "03",
+          title: "Rutina diaria",
+          description: "Tu rutina rápida para el trabajo y la vida fuera de él.",
+          steps: ["Limpia", "Hidrata", "Protege"],
+          products: ["Limpiador diario", "Crema ligera", "Protector sin brillo"]
+        }
+      ]
+    },
+    videos: {
+      kicker: "Videos para hombres que quieren mejorar su piel",
+      title: "Espacios listos para YouTube Shorts, TikTok, Reels y Pinterest.",
+      items: [
+        {
+          title: "Video 01",
+          subtitle: "La verdad sobre el sol y tu piel",
+          duration: "0:45"
+        },
+        {
+          title: "Próximo Short",
+          subtitle: "Rutina rápida antes del trabajo",
+          duration: "0:30"
+        },
+        {
+          title: "Rutina en 30 segundos",
+          subtitle: "Simple, rápida y efectiva",
+          duration: "0:30"
+        },
+        {
+          title: "Después del trabajo",
+          subtitle: "Lo que tu piel necesita al llegar a casa",
+          duration: "0:30"
+        }
+      ]
+    },
+    articles: {
+      kicker: "Aprende. Aplica. Mejora tu piel.",
+      title: "Guías rápidas para vender con contenido, no con presión.",
+      readMore: "Leer más →",
+      items: [
+        {
+          tag: "Sol y trabajo",
+          title: "Qué usar si trabajas bajo el sol",
+          text: "Protege tu piel del sol, evita resequedad y reduce el aspecto cansado después de jornadas largas."
+        },
+        {
+          tag: "Rasurado",
+          title: "Cómo calmar la piel después del rasurado",
+          text: "Evita ardor, irritación y granitos con una rutina sencilla antes y después del rastrillo."
+        },
+        {
+          tag: "Rutina simple",
+          title: "Cuidado facial para hombres que no quieren complicarse",
+          text: "Tres pasos básicos para verte más limpio, fresco y cuidado sin usar diez productos."
+        }
+      ]
+    },
+    community: {
+      kicker: "Únete a la comunidad Grit Skin",
+      title: "Contenido real. Hombres reales. Rutinas reales."
+    },
+    footer: {
+      text:
+        "Grit Skin es para hombres que trabajan duro y quieren cuidar su piel sin complicarse. Rutinas simples, productos útiles y educación real.",
+      nav: "Navegación",
+      info: "Información",
+      follow: "Síguenos",
+      links: {
+        about: "Sobre Grit Skin",
+        contact: "Contacto",
+        privacy: "Política de privacidad",
+        terms: "Términos y condiciones"
+      },
+      rights: "© 2026 Grit Skin. Todos los derechos reservados.",
+      affiliate:
+        "Algunos enlaces podrán ser de afiliado. Recomendamos productos por utilidad, criterio y experiencia."
+    }
   },
-  {
-    icon: "⌁",
-    title: "Después del rasurado",
-    text: "Para ardor, irritación y granitos por rastrillo."
-  },
-  {
-    icon: "☀",
-    title: "Sol y obra",
-    text: "Para quienes trabajan bajo sol, polvo y calor."
-  },
-  {
-    icon: "▭",
-    title: "Oficina y estrés",
-    text: "Para piel cansada, opaca y con mala cara."
-  },
-  {
-    icon: "❄",
-    title: "Frío y resequedad",
-    text: "Para climas duros, viento y piel tirante."
-  },
-  {
-    icon: "✣",
-    title: "Sudor y polvo",
-    text: "Para jornadas largas, logística, manejo y trabajo físico."
+  en: {
+    nav: {
+      inicio: "Home",
+      rutinas: "Routines",
+      problemas: "Skin concerns",
+      videos: "Videos",
+      reviews: "Reviews",
+      comunidad: "Community",
+      cta: "Find your routine"
+    },
+    hero: {
+      eyebrow: "Grit skin. Real life.",
+      title1: "Real care",
+      title2: "for working skin.",
+      text:
+        "For men who live between construction, logistics, office work, sun, dust, sweat, and harsh weather. Grit Skin was created for men who work hard and still want to take care of their skin.",
+      button1: "See routines",
+      button2: "Explore products",
+      quote: "Even if our skin feels like leather, it still deserves care.",
+      foundedBy: "Founded by",
+      founder: "Miguel Fierro",
+      founderRole: "Founder of Grit Skin"
+    },
+    problems: {
+      kicker: "Your skin, your environment, your routine",
+      title: "Choose your main concern and find what your skin needs.",
+      cards: [
+        {
+          icon: "◒",
+          title: "Oily skin",
+          text: "For shine, sweat, and a heavy feeling throughout the day."
+        },
+        {
+          icon: "⌁",
+          title: "After shaving",
+          text: "For razor burn, irritation, and post-shave bumps."
+        },
+        {
+          icon: "☀",
+          title: "Sun and worksite",
+          text: "For men who work under sun, dust, and heat."
+        },
+        {
+          icon: "▭",
+          title: "Office and stress",
+          text: "For tired, dull skin and a worn-out look."
+        },
+        {
+          icon: "❄",
+          title: "Cold and dryness",
+          text: "For harsh climates, wind, and tight-feeling skin."
+        },
+        {
+          icon: "✣",
+          title: "Sweat and dust",
+          text: "For long shifts, logistics, driving, and physical work."
+        }
+      ]
+    },
+    founder: {
+      label: "Our story",
+      title: "Built from experience.",
+      p1:
+        "I am Miguel Fierro, founder of Grit Skin. I have been in construction, logistics, and office environments across Canada, Mexico, South America, and parts of Europe. I know firsthand how sun, dust, cold, sweat, and stress affect the skin of men who work.",
+      p2:
+        "Grit Skin was created to simplify men’s skincare with effective routines, reliable products, and real education. No empty promises, no complications, and no making personal care feel foreign to men.",
+      trusts: [
+        {
+          icon: "★",
+          title: "Real experience",
+          text: "Across worksites, offices, logistics, and demanding environments."
+        },
+        {
+          icon: "◎",
+          title: "Professionally advised",
+          text: "Supported by beauty professionals from Switzerland, Mexico, and Colombia."
+        },
+        {
+          icon: "◇",
+          title: "Simple solutions",
+          text: "Practical routines for real men and visible results."
+        },
+        {
+          icon: "▰",
+          title: "Trust and quality",
+          text: "Products selected by usefulness, experience, and judgment."
+        }
+      ]
+    },
+    routines: {
+      kicker: "Simple routines. Real results.",
+      title: "Start with three steps. Then adjust based on your skin.",
+      button: "See products",
+      productLabel: "Affiliate product",
+      routines: [
+        {
+          number: "01",
+          title: "Essential routine",
+          description: "The basics to keep your skin clean, hydrated, and protected.",
+          steps: ["Cleanse", "Hydrate", "Protect"],
+          products: ["Face cleanser", "Light moisturizer", "Sunscreen"]
+        },
+        {
+          number: "02",
+          title: "Recovery routine",
+          description: "Ideal after intense shifts, shaving, sun exposure, or dust.",
+          steps: ["Cleanse", "Calm", "Hydrate"],
+          products: ["Gentle cleanser", "Calming toner", "Hydrating gel"]
+        },
+        {
+          number: "03",
+          title: "Daily routine",
+          description: "Your quick routine for work and life outside of it.",
+          steps: ["Cleanse", "Hydrate", "Protect"],
+          products: ["Daily cleanser", "Light cream", "No-shine sunscreen"]
+        }
+      ]
+    },
+    videos: {
+      kicker: "Videos for men who want better skin",
+      title: "Slots ready for YouTube Shorts, TikTok, Reels, and Pinterest.",
+      items: [
+        {
+          title: "Video 01",
+          subtitle: "The truth about sun and your skin",
+          duration: "0:45"
+        },
+        {
+          title: "Next Short",
+          subtitle: "Quick pre-work routine",
+          duration: "0:30"
+        },
+        {
+          title: "Routine in 30 seconds",
+          subtitle: "Simple, fast, effective",
+          duration: "0:30"
+        },
+        {
+          title: "After work",
+          subtitle: "What your skin needs when you get home",
+          duration: "0:30"
+        }
+      ]
+    },
+    articles: {
+      kicker: "Learn. Apply. Improve your skin.",
+      title: "Quick guides that sell through content, not pressure.",
+      readMore: "Read more →",
+      items: [
+        {
+          tag: "Sun and work",
+          title: "What to use if you work under the sun",
+          text: "Protect your skin from sun exposure, avoid dryness, and reduce the tired look after long shifts."
+        },
+        {
+          tag: "Shaving",
+          title: "How to calm your skin after shaving",
+          text: "Avoid burning, irritation, and bumps with a simple pre- and post-shave routine."
+        },
+        {
+          tag: "Simple routine",
+          title: "Skincare for men who do not want to overcomplicate it",
+          text: "Three basic steps to look cleaner, fresher, and better cared for without using ten products."
+        }
+      ]
+    },
+    community: {
+      kicker: "Join the Grit Skin community",
+      title: "Real content. Real men. Real routines."
+    },
+    footer: {
+      text:
+        "Grit Skin is for men who work hard and want to care for their skin without overcomplicating it. Simple routines, useful products, and real education.",
+      nav: "Navigation",
+      info: "Information",
+      follow: "Follow us",
+      links: {
+        about: "About Grit Skin",
+        contact: "Contact",
+        privacy: "Privacy policy",
+        terms: "Terms and conditions"
+      },
+      rights: "© 2026 Grit Skin. All rights reserved.",
+      affiliate:
+        "Some links may be affiliate links. We recommend products based on usefulness, judgment, and experience."
+    }
   }
-];
-
-const routines = [
-  {
-    number: "01",
-    title: "Rutina esencial",
-    description: "Lo básico para mantener tu piel limpia, hidratada y protegida.",
-    steps: ["Limpia", "Hidrata", "Protege"],
-    products: [
-      { name: "Limpiador facial", detail: "Producto afiliado", price: "$0.00", link: "#" },
-      { name: "Hidratante ligera", detail: "Producto afiliado", price: "$0.00", link: "#" },
-      { name: "Protector solar", detail: "Producto afiliado", price: "$0.00", link: "#" }
-    ]
-  },
-  {
-    number: "02",
-    title: "Rutina de recuperación",
-    description: "Ideal después de jornadas intensas, rasurado, sol o polvo.",
-    steps: ["Limpia", "Calma", "Hidrata"],
-    products: [
-      { name: "Limpiador suave", detail: "Producto afiliado", price: "$0.00", link: "#" },
-      { name: "Tónico calmante", detail: "Producto afiliado", price: "$0.00", link: "#" },
-      { name: "Gel hidratante", detail: "Producto afiliado", price: "$0.00", link: "#" }
-    ]
-  },
-  {
-    number: "03",
-    title: "Rutina diaria",
-    description: "Tu rutina rápida para el trabajo y la vida fuera de él.",
-    steps: ["Limpia", "Hidrata", "Protege"],
-    products: [
-      { name: "Limpiador diario", detail: "Producto afiliado", price: "$0.00", link: "#" },
-      { name: "Crema ligera", detail: "Producto afiliado", price: "$0.00", link: "#" },
-      { name: "Protector sin brillo", detail: "Producto afiliado", price: "$0.00", link: "#" }
-    ]
-  }
-];
-
-const videos = [
-  {
-    title: "Video 01",
-    subtitle: "La verdad sobre el sol y tu piel",
-    duration: "0:45"
-  },
-  {
-    title: "Próximo Short",
-    subtitle: "Rutina rápida antes del trabajo",
-    duration: "0:30"
-  },
-  {
-    title: "Rutina en 30 segundos",
-    subtitle: "Simple, rápida y efectiva",
-    duration: "0:30"
-  },
-  {
-    title: "Después del trabajo",
-    subtitle: "Lo que tu piel necesita al llegar a casa",
-    duration: "0:30"
-  }
-];
-
-const articles = [
-  {
-    tag: "Sol y trabajo",
-    title: "Qué usar si trabajas bajo el sol",
-    text: "Protege tu piel del sol, evita resequedad y reduce el aspecto cansado después de jornadas largas."
-  },
-  {
-    tag: "Rasurado",
-    title: "Cómo calmar la piel después del rasurado",
-    text: "Evita ardor, irritación y granitos con una rutina sencilla antes y después del rastrillo."
-  },
-  {
-    tag: "Rutina simple",
-    title: "Cuidado facial para hombres que no quieren complicarse",
-    text: "Tres pasos básicos para verte más limpio, fresco y cuidado sin usar diez productos."
-  }
-];
+};
 
 const socials = [
   { name: "TikTok", handle: "@gritskin", link: "#" },
@@ -125,22 +392,25 @@ const socials = [
 ];
 
 function App() {
+  const [lang, setLang] = useState("es");
+  const t = copy[lang];
+
   return (
     <main className="site">
-      <Header />
-      <Hero />
-      <ProblemSection />
-      <FounderSection />
-      <RoutinesSection />
-      <VideosSection />
-      <ArticlesSection />
-      <CommunitySection />
-      <Footer />
+      <Header t={t} lang={lang} setLang={setLang} />
+      <Hero t={t} />
+      <ProblemSection t={t} />
+      <FounderSection t={t} />
+      <RoutinesSection t={t} />
+      <VideosSection t={t} />
+      <ArticlesSection t={t} />
+      <CommunitySection t={t} />
+      <Footer t={t} />
     </main>
   );
 }
 
-function Header() {
+function Header({ t, lang, setLang }) {
   return (
     <header className="header">
       <a href="#inicio" className="brand" aria-label="Grit Skin inicio">
@@ -159,22 +429,41 @@ function Header() {
       </a>
 
       <nav className="nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a>
-        <a href="#rutinas">Rutinas</a>
-        <a href="#problemas">Problemas</a>
-        <a href="#videos">Videos</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#comunidad">Comunidad</a>
+        <a href="#inicio">{t.nav.inicio}</a>
+        <a href="#rutinas">{t.nav.rutinas}</a>
+        <a href="#problemas">{t.nav.problemas}</a>
+        <a href="#videos">{t.nav.videos}</a>
+        <a href="#reviews">{t.nav.reviews}</a>
+        <a href="#comunidad">{t.nav.comunidad}</a>
       </nav>
 
-      <a href="#rutinas" className="navButton">
-        Encuentra tu rutina
-      </a>
+      <div className="headerActions">
+        <div className="languageToggle" aria-label="Selector de idioma">
+          <button
+            type="button"
+            className={lang === "es" ? "active" : ""}
+            onClick={() => setLang("es")}
+          >
+            ES
+          </button>
+          <button
+            type="button"
+            className={lang === "en" ? "active" : ""}
+            onClick={() => setLang("en")}
+          >
+            EN
+          </button>
+        </div>
+
+        <a href="#rutinas" className="navButton">
+          {t.nav.cta}
+        </a>
+      </div>
     </header>
   );
 }
 
-function Hero() {
+function Hero({ t }) {
   return (
     <section id="inicio" className="hero">
       <div
@@ -185,58 +474,52 @@ function Hero() {
       <div className="heroOverlay" />
 
       <div className="heroContent">
-        <p className="eyebrow">Piel grit. Vida real.</p>
+        <p className="eyebrow">{t.hero.eyebrow}</p>
 
         <h1>
-          Cuidado real
-          <span>para piel de trabajo.</span>
+          {t.hero.title1}
+          <span>{t.hero.title2}</span>
         </h1>
 
-        <p className="heroText">
-          Para quienes viven entre construcción, logística, oficina, sol, polvo,
-          sudor y clima extremo. Grit Skin nace para hombres que trabajan duro y
-          también quieren cuidar su piel.
-        </p>
+        <p className="heroText">{t.hero.text}</p>
 
         <div className="heroActions">
           <a href="#rutinas" className="buttonPrimary">
-            Ver rutinas
+            {t.hero.button1}
           </a>
           <a href="#reviews" className="buttonSecondary">
-            Explorar productos
+            {t.hero.button2}
           </a>
         </div>
 
         <div className="heroQuote">
           <span className="shieldIcon">◇</span>
-          <p>
-            Aunque tengamos cuero en vez de piel, también merece cuidárnosla.
-          </p>
+          <p>{t.hero.quote}</p>
         </div>
       </div>
 
       <div className="heroBadge">
         <span className="badgeIcon">▱</span>
         <div>
-          <small>Fundado por</small>
-          <strong>Miguel Fierro</strong>
-          <p>Fundador de Grit Skin</p>
+          <small>{t.hero.foundedBy}</small>
+          <strong>{t.hero.founder}</strong>
+          <p>{t.hero.founderRole}</p>
         </div>
       </div>
     </section>
   );
 }
 
-function ProblemSection() {
+function ProblemSection({ t }) {
   return (
     <section id="problemas" className="problems sectionDark">
       <div className="sectionHeader">
-        <p className="sectionKicker">Tu piel, tu entorno, tu rutina</p>
-        <h2>Elige el problema principal y encuentra lo que tu piel necesita.</h2>
+        <p className="sectionKicker">{t.problems.kicker}</p>
+        <h2>{t.problems.title}</h2>
       </div>
 
       <div className="problemGrid">
-        {problemCards.map((card) => (
+        {t.problems.cards.map((card) => (
           <article className="problemCard" key={card.title}>
             <span className="problemIcon">{card.icon}</span>
             <h3>{card.title}</h3>
@@ -248,76 +531,48 @@ function ProblemSection() {
   );
 }
 
-function FounderSection() {
+function FounderSection({ t }) {
   return (
     <section className="founder">
       <div className="founderImageWrap">
         <img
           src={imagePaths.founder}
-          alt="Miguel Fierro, fundador de Grit Skin"
+          alt="Miguel Fierro, founder of Grit Skin"
           className="founderImage"
         />
       </div>
 
       <div className="founderText">
-        <p className="smallLabel">Nuestra historia</p>
-        <h2>Creado desde la experiencia.</h2>
+        <p className="smallLabel">{t.founder.label}</p>
+        <h2>{t.founder.title}</h2>
 
-        <p>
-          Soy Miguel Fierro, fundador de Grit Skin. He estado en ambientes de
-          construcción, logística y oficina en Canadá, México, Sudamérica y
-          algunas partes de Europa. Conozco de primera mano cómo el sol, el
-          polvo, el frío, el sudor y el estrés afectan la piel del hombre que
-          trabaja.
-        </p>
-
-        <p>
-          Grit Skin nace para simplificar el cuidado masculino con rutinas
-          efectivas, productos confiables y educación real. Sin promesas vacías,
-          sin complicaciones y sin hacer del cuidado personal algo ajeno al
-          hombre.
-        </p>
+        <p>{t.founder.p1}</p>
+        <p>{t.founder.p2}</p>
 
         <div className="trustGrid">
-          <div className="trustItem">
-            <span>★</span>
-            <strong>Experiencia real</strong>
-            <p>En obras, oficinas, logística y entornos de trabajo exigentes.</p>
-          </div>
-
-          <div className="trustItem">
-            <span>◎</span>
-            <strong>Asesorado por profesionales</strong>
-            <p>Con apoyo de especialistas de belleza de Suiza, México y Colombia.</p>
-          </div>
-
-          <div className="trustItem">
-            <span>◇</span>
-            <strong>Soluciones simples</strong>
-            <p>Rutinas prácticas para hombres reales y resultados visibles.</p>
-          </div>
-
-          <div className="trustItem">
-            <span>▰</span>
-            <strong>Confianza y calidad</strong>
-            <p>Productos seleccionados por utilidad, experiencia y criterio.</p>
-          </div>
+          {t.founder.trusts.map((item) => (
+            <div className="trustItem" key={item.title}>
+              <span>{item.icon}</span>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function RoutinesSection() {
+function RoutinesSection({ t }) {
   return (
     <section id="rutinas" className="routines sectionDark">
       <div className="sectionHeader">
-        <p className="sectionKicker">Rutinas simples. Resultados reales.</p>
-        <h2>Empieza con tres pasos. Después ajustamos según tu piel.</h2>
+        <p className="sectionKicker">{t.routines.kicker}</p>
+        <h2>{t.routines.title}</h2>
       </div>
 
       <div className="routineGrid">
-        {routines.map((routine) => (
+        {t.routines.routines.map((routine) => (
           <article className="routineCard" key={routine.title}>
             <div className="routineTop">
               <span>{routine.number}</span>
@@ -343,21 +598,21 @@ function RoutinesSection() {
               {routine.products.map((product, index) => (
                 <a
                   className="productTile"
-                  href={product.link}
-                  key={product.name}
+                  href="#"
+                  key={product}
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={`productShape productShape${index + 1}`} />
-                  <strong>{product.name}</strong>
-                  <small>{product.detail}</small>
-                  <span>{product.price}</span>
+                  <strong>{product}</strong>
+                  <small>{t.routines.productLabel}</small>
+                  <span>$0.00</span>
                 </a>
               ))}
             </div>
 
             <a href="#reviews" className="routineButton">
-              Ver productos
+              {t.routines.button}
             </a>
           </article>
         ))}
@@ -366,16 +621,16 @@ function RoutinesSection() {
   );
 }
 
-function VideosSection() {
+function VideosSection({ t }) {
   return (
     <section id="videos" className="videos sectionDark">
       <div className="sectionHeader">
-        <p className="sectionKicker">Videos para hombres que quieren mejorar su piel</p>
-        <h2>Espacios listos para YouTube Shorts, TikTok, Reels y Pinterest.</h2>
+        <p className="sectionKicker">{t.videos.kicker}</p>
+        <h2>{t.videos.title}</h2>
       </div>
 
       <div className="videoGrid">
-        {videos.map((video) => (
+        {t.videos.items.map((video) => (
           <article className="videoCard" key={video.title}>
             <div className="playButton">▶</div>
             <span className="duration">{video.duration}</span>
@@ -390,23 +645,23 @@ function VideosSection() {
   );
 }
 
-function ArticlesSection() {
+function ArticlesSection({ t }) {
   return (
     <section id="reviews" className="articles">
       <div className="sectionHeader light">
-        <p className="sectionKicker">Aprende. Aplica. Mejora tu piel.</p>
-        <h2>Guías rápidas para vender con contenido, no con presión.</h2>
+        <p className="sectionKicker">{t.articles.kicker}</p>
+        <h2>{t.articles.title}</h2>
       </div>
 
       <div className="articleGrid">
-        {articles.map((article, index) => (
+        {t.articles.items.map((article, index) => (
           <article className="articleCard" key={article.title}>
             <div className={`articleImage articleImage${index + 1}`} />
             <div className="articleBody">
               <span>{article.tag}</span>
               <h3>{article.title}</h3>
               <p>{article.text}</p>
-              <a href="#">Leer más →</a>
+              <a href="#">{t.articles.readMore}</a>
             </div>
           </article>
         ))}
@@ -415,12 +670,12 @@ function ArticlesSection() {
   );
 }
 
-function CommunitySection() {
+function CommunitySection({ t }) {
   return (
     <section id="comunidad" className="community sectionDark">
       <div className="sectionHeader">
-        <p className="sectionKicker">Únete a la comunidad Grit Skin</p>
-        <h2>Contenido real. Hombres reales. Rutinas reales.</h2>
+        <p className="sectionKicker">{t.community.kicker}</p>
+        <h2>{t.community.title}</h2>
       </div>
 
       <div className="socialGrid">
@@ -441,7 +696,7 @@ function CommunitySection() {
   );
 }
 
-function Footer() {
+function Footer({ t }) {
   return (
     <footer className="footer">
       <div className="footerBrand">
@@ -449,32 +704,29 @@ function Footer() {
           <strong>GRIT</strong>
           <em>Skin</em>
         </div>
-        <p>
-          Grit Skin es para hombres que trabajan duro y quieren cuidar su piel
-          sin complicarse. Rutinas simples, productos útiles y educación real.
-        </p>
+        <p>{t.footer.text}</p>
       </div>
 
       <div className="footerColumns">
         <div>
-          <h4>Navegación</h4>
-          <a href="#inicio">Inicio</a>
-          <a href="#rutinas">Rutinas</a>
-          <a href="#problemas">Problemas</a>
-          <a href="#videos">Videos</a>
-          <a href="#reviews">Reviews</a>
+          <h4>{t.footer.nav}</h4>
+          <a href="#inicio">{t.nav.inicio}</a>
+          <a href="#rutinas">{t.nav.rutinas}</a>
+          <a href="#problemas">{t.nav.problemas}</a>
+          <a href="#videos">{t.nav.videos}</a>
+          <a href="#reviews">{t.nav.reviews}</a>
         </div>
 
         <div>
-          <h4>Información</h4>
-          <a href="#">Sobre Grit Skin</a>
-          <a href="#">Contacto</a>
-          <a href="#">Política de privacidad</a>
-          <a href="#">Términos y condiciones</a>
+          <h4>{t.footer.info}</h4>
+          <a href="#">{t.footer.links.about}</a>
+          <a href="#">{t.footer.links.contact}</a>
+          <a href="#">{t.footer.links.privacy}</a>
+          <a href="#">{t.footer.links.terms}</a>
         </div>
 
         <div>
-          <h4>Síguenos</h4>
+          <h4>{t.footer.follow}</h4>
           <a href="#">TikTok</a>
           <a href="#">Instagram</a>
           <a href="#">YouTube</a>
@@ -484,11 +736,8 @@ function Footer() {
       </div>
 
       <div className="footerBottom">
-        <p>© 2026 Grit Skin. Todos los derechos reservados.</p>
-        <p>
-          Algunos enlaces podrán ser de afiliado. Recomendamos productos por
-          utilidad, criterio y experiencia.
-        </p>
+        <p>{t.footer.rights}</p>
+        <p>{t.footer.affiliate}</p>
       </div>
     </footer>
   );

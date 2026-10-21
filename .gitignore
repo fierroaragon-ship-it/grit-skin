@@ -1,0 +1,17 @@
+node_modules/
+dist/
+
+# Entorno local, secretos y temporales
+.env
+.env.*
+!.env.example
+.vercel/
+.DS_Store
+*.log
+*.tmp
+*.pem
+*.key
+
+# Paquetes de entrada duplicados; recursos definitivos en public/images/
+/hamburgueso-4-poses/
+/Eight Friends in a Warm Workshop.png

@@ -420,7 +420,7 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
   .routine-copy { grid-column: 1; grid-row: 2; }
 }
 
-/* La panorámica aprobada conserva a los ocho, sin superponer texto ni recortar. */
+/* La panorámica aprobada conserva a los nueve, sin superponer texto ni recortar. */
 .hero-picture { display: block; width: 100%; }
 .hero-photo { width: 100%; height: auto; aspect-ratio: 2100 / 749; object-fit: contain; }
 .hero-shade { display: none; }

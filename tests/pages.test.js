@@ -62,10 +62,10 @@ test('pages render in both languages with real images, working destinations and 
         if (['/skin-care', '/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes('class="host-note"'), 'category host intro');
         if (pathname === '/') {
           const heroImage = html.match(/<img[^>]*class="hero-photo"[^>]*>/)[0];
-          assert.ok(heroImage.includes('src="/images/grit-hero-eight-friends-workshop.png"'), 'approved eight-person cover');
+          assert.ok(heroImage.includes('src="/images/grit-hero-nine-friends-workbench.png"'), 'approved nine-person cover');
           assert.ok(heroImage.includes('loading="eager"'), 'hero must not be lazy-loaded');
           assert.ok(heroImage.includes('width="2100"') && heroImage.includes('height="749"'), 'space reserved before image download');
-          assert.ok(html.includes('srcSet="/images/grit-hero-eight-friends-workshop.webp"'));
+          assert.ok(html.includes('srcSet="/images/grit-hero-nine-friends-workbench.webp"'));
           assert.ok(existsSync('public/images/grit-hero-workers.png'), 'previous photograph retained');
           assert.ok(!heroImage.includes('hidden') && !heroImage.includes('opacity:0'), 'hero rendered immediately');
         }

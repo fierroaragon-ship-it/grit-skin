@@ -142,6 +142,32 @@ function Catalog({ lang, t, category, search }) {
     {shown.length ? <div className="product-grid">{shown.map(p => <article className="product-card" key={p.slug}><Link href={`/producto/${p.slug}`}><Photo src={p.photos[0]?.src} alt={p.photos[0]?.alt[lang] || t.noPhoto} /><p className="kicker">{categories.find(c => c.id === p.category)?.name}</p><h3>{p.name[lang]}</h3></Link><p>{p.description[lang]}</p><Link className="button outline" href={`/producto/${p.slug}`}>{t.view} →</Link><StoreLink product={p} t={t} /></article>)}</div> : <div className="empty-state"><span className="empty-icon" aria-hidden="true">◇</span><p className="kicker">GRIT SKIN</p><h3>{products.length ? t.noResults : t.preparing}</h3><p>{products.length ? t.noResultsText : t.preparingText}</p>{(query || need || (!category && selected)) && <button className="button outline" onClick={reset}>{t.reset}</button>}</div>}
   </section>;
 }
+function TemuBenefits({ lang }) {
+  const [copyState, setCopyState] = useState('idle');
+  const codeRef = useRef(null);
+  const copying = useRef(false);
+  const spanish = lang === 'es';
+  async function copyCode() {
+    if (copying.current) return;
+    copying.current = true;
+    setCopyState('idle');
+    try {
+      await navigator.clipboard.writeText('alw851649');
+      setCopyState('copied');
+    } catch {
+      setCopyState('manual');
+      codeRef.current?.focus();
+      codeRef.current?.select();
+    } finally {
+      copying.current = false;
+    }
+  }
+  return <section className="section temu-benefits" id="beneficios-temu" aria-labelledby="temu-title">
+    <div className="temu-card"><div className="temu-heading"><img className="temu-logo" src="/images/temu-official-logo.png" alt="Temu" width="125" height="125" /><p className="kicker">{spanish ? 'Beneficios en Temu' : 'Temu benefits'}</p><h2 id="temu-title">{spanish ? '30% de descuento en Temu' : '30% off on Temu'}</h2><p className="temu-conditions">{spanish ? 'Para nuevos usuarios o reinstalaciones de la app que cumplan las condiciones de Temu. Consulta elegibilidad, vigencia y condiciones en Temu' : 'For new users or app reinstalls that meet Temu’s terms. Check eligibility, validity and terms on Temu'}</p></div>
+    <div className="temu-code-panel"><label className="kicker" htmlFor="temu-code">{spanish ? 'Tu código' : 'Your code'}</label><input ref={codeRef} id="temu-code" className="temu-code" value="alw851649" readOnly spellCheck={false} autoComplete="off" aria-describedby="temu-copy-status" onFocus={event => event.target.select()} /><button type="button" className="button primary" onClick={copyCode}>{spanish ? 'Copiar código' : 'Copy code'} <span aria-hidden="true">↗</span></button><p id="temu-copy-status" className="temu-copy-status" role="status" aria-live="polite">{copyState === 'copied' ? (spanish ? 'Código copiado.' : 'Code copied.') : copyState === 'manual' ? (spanish ? 'No se pudo copiar automáticamente. Selecciona el código y usa Copiar en tu dispositivo, o pulsa Ctrl+C / ⌘C.' : 'Automatic copy failed. Select the code and use Copy on your device, or press Ctrl+C / ⌘C.') : (spanish ? 'También puedes seleccionar y copiar el código manualmente.' : 'You can also select and copy the code manually.')}</p></div>
+    <p className="temu-disclosure">{spanish ? 'Publicidad de afiliado: podemos recibir una comisión por acciones o compras que cumplan las condiciones de Temu' : 'Affiliate advertising: we may receive a commission for actions or purchases that meet Temu’s terms'}</p></div>
+  </section>;
+}
 function RoutineGuide({ lang }) {
   const steps = lang === 'es'
     ? [['Una cosa a la vez', 'Empieza por lo que quieres cuidar. Una rutina no necesita resolverlo todo de golpe.'], ['Hazle espacio en tu día', 'Elige un momento que te funcione. La mejor rutina es la que sí recuerdas.'], ['Elige con información', 'Cuando llegue la selección, revisa las características y las instrucciones en cada tienda.']]
@@ -184,14 +210,18 @@ export default function App() {
   const [path, search = ''] = url.split('?');
   const page = resolvePage(path);
   useEffect(() => { const handle = () => setUrl(location.pathname + location.search); window.addEventListener('popstate', handle); return () => window.removeEventListener('popstate', handle); }, []);
-  useEffect(() => { window.scrollTo(0, 0); }, [path]);
+  useEffect(() => {
+    const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    if (target) target.scrollIntoView({ behavior: 'instant' });
+    else window.scrollTo(0, 0);
+  }, [path]);
   useEffect(() => { document.documentElement.lang = lang; try { localStorage.setItem('grit-language', lang); } catch {} }, [lang]);
   const product = page.type === 'product' ? products.find(p => p.slug === page.slug) : null;
   useEffect(() => { document.title = `${page.category?.name || (page.type === 'shop' ? t.shop : page.type === 'about' ? t.aboutPage : page.type === 'guides' ? t.guides : page.type === 'host' ? 'Hamburgueso' : product?.name[lang] || t.home)} | Gritskin`; }, [path, lang, product]);
   return <><a className="skip-link" href="#contenido">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a><div className="announcement">{lang === 'es' ? 'Cuidado personal. Esenciales. Buenas decisiones.' : 'Personal care. Essentials. Thoughtful choices.'}</div><Header lang={lang} setLang={setLang} page={page} path={path} t={t} />
     <main id="contenido">
       {page.type === 'home' && <><section className="hero"><picture className="hero-picture"><source type="image/webp" srcSet="/images/grit-hero-nine-friends-workbench.webp" /><img className="hero-photo" loading="eager" decoding="async" fetchPriority="high" width="2100" height="749" src="/images/grit-hero-nine-friends-workbench.png" alt={lang === 'es' ? 'Nueve amigos reunidos en un taller' : 'Nine friends together in a workshop'} /></picture><div className="hero-shade" aria-hidden="true" /><div className="hero-copy"><p className="kicker">{t.eyebrow}</p><h1>{t.title}</h1><p>{t.intro}</p><div className="hero-actions"><a href="#categorias" className="button primary">{t.explore} <span aria-hidden="true">↓</span></a><a href="#catalogo" className="button hero-secondary">{lang === 'es' ? 'Ver catálogo' : 'View catalog'} <span aria-hidden="true">→</span></a></div></div><span className="hero-caption">GRIT SKIN / EVERYDAY GRIT</span></section><MotionRibbons lang={lang} /><Welcome lang={lang} /><section className="section categories" id="categorias"><p className="kicker">{lang === 'es' ? 'ELIGE TU CAMINO' : 'CHOOSE YOUR WAY'}</p><h2>{t.categories}</h2><p className="muted">{t.categoryIntro}</p><CategoryBlocks lang={lang} /></section><Catalog t={t} lang={lang} search={search} /></>}
-      {page.type === 'shop' && <><section className="section shop-intro"><HostPose pose="shop" /><div><p className="kicker">{t.selection}</p><h1>{t.shop}</h1><p>{lang === 'es' ? 'Encuentra lo que va contigo. Explora a tu ritmo y elige con información.' : 'Find what fits your life. Explore at your pace and make informed choices.'}</p><a className="text-link" href="#catalogo">{t.catalog} ↓</a></div></section><Catalog t={t} lang={lang} search={search} /></>}
+      {page.type === 'shop' && <><section className="section shop-intro"><HostPose pose="shop" /><div><p className="kicker">{t.selection}</p><h1>{t.shop}</h1><p>{lang === 'es' ? 'Encuentra lo que va contigo. Explora a tu ritmo y elige con información.' : 'Find what fits your life. Explore at your pace and make informed choices.'}</p><a className="text-link" href="#catalogo">{t.catalog} ↓</a></div></section><TemuBenefits lang={lang} /><Catalog t={t} lang={lang} search={search} /></>}
       {page.type === 'category' && <><div className={`page-intro section ${page.category.id === 'skin-care' ? 'category-intro-preview' : ''}`}><Link className="text-link" href="/">{t.home} /</Link><p className="kicker">GRIT SKIN · {page.category.number}</p><h1>{page.category.name}</h1><p>{page.category.description[lang]}</p><CategoryHost lang={lang} category={page.category} /></div><Catalog t={t} lang={lang} category={page.category} search={search} /></>}
       {page.type === 'about' && <About lang={lang} t={t} />}
       {page.type === 'host' && <><Host t={t} /><section className="section host-guide-link"><p className="kicker">HAMBURGUESO</p><h2>{lang === 'es' ? 'Un consejo y seguimos.' : 'A quick tip before you go.'}</h2><Link className="button primary" href="/rutinas-y-guias">{t.guides} →</Link></section></>}

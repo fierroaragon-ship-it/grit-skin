@@ -319,8 +319,6 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
 .category-visual-card .category-card-copy p { font-size: 16px; max-width: 400px; }
 .category-action { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 32px; color: var(--ink); font-size: 14px; font-weight: 500; }
 .category-action > span { display: grid; place-items: center; min-width: 42px; height: 42px; background: var(--coral); border: 1px solid var(--ink); }
-.manuals-pending { border-top: 1px solid #D6D6D2; }
-.manuals-pending > p { max-width: 720px; }
 .host-guide-link { border-top: 1px solid #D6D6D2; }
 @media (max-width: 850px) {
   .shop-disclosure { width: 100%; }
@@ -471,4 +469,24 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
   .shop-intro .host-inline-image { width: 80px; }
   .shop-intro h1 { font-size: 36px; }
   .temu-card { padding: 20px; }
+}
+
+/* Libro: portada original completa, con su relación de aspecto. */
+.ebook-section { border-top: 1px solid #D6D6D2; }
+.ebook-card { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 88px); }
+.ebook-cover { padding: 28px; background: var(--stone); border: 1px solid #E0E0DC; }
+.ebook-cover img { display: block; width: 100%; height: auto; object-fit: contain; box-shadow: 0 8px 24px #17171424; }
+.ebook-copy { min-width: 0; max-width: 570px; }
+.ebook-copy .kicker { margin-bottom: 20px; }
+.ebook-copy h2 { font-size: clamp(36px, 4.5vw, 60px); margin-bottom: 16px; }
+.ebook-author { margin-bottom: 28px; color: var(--muted); }
+.ebook-description { font-size: 20px; line-height: 1.65; margin-bottom: 32px; }
+.ebook-copy .button { max-width: 100%; }
+.ebook-purchase-note { margin: 20px 0 12px; max-width: 360px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.ebook-affiliate { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+@media (max-width: 700px) {
+  .ebook-card { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .ebook-cover { width: 100%; max-width: 400px; justify-self: center; padding: 22px; }
+  .ebook-copy h2 { font-size: 38px; }
+  .ebook-description { font-size: 18px; margin-bottom: 24px; }
 }

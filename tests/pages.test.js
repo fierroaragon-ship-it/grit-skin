@@ -29,8 +29,13 @@ test('pages render in both languages with real images, working destinations and 
         for (const category of ['skin-care', 'grooming', 'mens-essentials', 'smart-finds']) assert.ok(nav.includes(`href="/${category}"`));
         if (pathname === '/rutinas-y-guias') {
           assert.ok(html.includes(lang === 'es' ? 'Rutinas y guías' : 'Routines &amp; guides'));
-          assert.ok(html.includes(lang === 'es' ? 'Manuales en preparación' : 'Manuals in preparation'));
-          assert.ok(!/href="https?:[^"]*hotmart/.test(html));
+          assert.ok(html.includes('Cuidado 360° para hombres.'));
+          assert.ok(html.includes('Ángel Valdez'));
+          assert.ok(html.includes('/images/cuidado-360-hombres-portada.png'));
+          assert.ok(html.includes('href="https://go.hotmart.com/J108158867M" target="_blank" rel="sponsored noopener noreferrer"'));
+          assert.ok(html.includes(lang === 'es' ? 'Ver libro en Hotmart' : 'View book on Hotmart'));
+          assert.ok(html.includes(lang === 'es' ? 'La compra se realiza en Hotmart. Consulta allí el precio vigente.' : 'Purchases take place on Hotmart. Check the current price there.'));
+          assert.ok(!html.includes('Manuales en preparación') && !html.includes('Manuals in preparation'));
         }
         if (pathname === '/') {
           assert.equal((html.match(/class="category-card category-visual-card"/g) || []).length, 4);

@@ -30,6 +30,13 @@ test('pages render in both languages with real images, working destinations and 
         if (pathname === '/rutinas-y-guias') {
           assert.ok(html.includes(lang === 'es' ? 'Rutinas y guías' : 'Routines &amp; guides'));
           assert.ok(html.includes('Cuidado 360° para hombres.'));
+          assert.ok(html.includes('Barbería: higiene de tu barba en casa.'));
+          assert.ok(html.includes('Beard Grooming'));
+          assert.ok(html.includes('/images/barberia-higiene-barba-portada.png'));
+          assert.ok(html.includes('href="https://go.hotmart.com/A108158861S" target="_blank" rel="sponsored noopener noreferrer"'));
+          assert.ok(html.includes(lang === 'es' ? 'Ver curso en Hotmart' : 'View course on Hotmart'));
+          assert.ok(html.includes('id="barberia-en-casa"'));
+
           assert.ok(html.includes('Ángel Valdez'));
           assert.ok(html.includes('/images/cuidado-360-hombres-portada.png'));
           assert.ok(html.includes('href="https://go.hotmart.com/J108158867M" target="_blank" rel="sponsored noopener noreferrer"'));

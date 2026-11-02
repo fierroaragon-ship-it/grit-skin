@@ -24,7 +24,7 @@ export default function HomePartners({ lang, search }) {
       <h2>Adidas</h2>
       <a className="button primary" href={adidas.url} target="_blank" rel="sponsored noopener noreferrer">{spanish ? 'Explorar Adidas' : 'Explore Adidas'} <span aria-hidden="true">↗</span></a>
     </div>
-    <p className="home-partners-disclosure">{spanish ? 'Enlaces de afiliado: podemos recibir una comisión por las compras realizadas a través de estos enlaces. La compra se realiza en el sitio de cada marca.' : 'Affiliate links: we may receive a commission for purchases made through these links. Purchases take place on each brand’s website.'}</p>
+    <p className="home-partners-disclosure">{spanish ? 'Podemos recibir una comisión si compras desde estos enlaces.' : 'We may earn a commission if you buy through these links.'}</p>
     {import.meta.env.DEV && simulated !== null && <p className="style-preview" role="status">{spanish ? 'Vista de desarrollo · Fecha simulada (America/Mexico_City): ' : 'Development preview · Simulated date (America/Mexico_City): '}{new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', dateStyle: 'long', timeStyle: 'short' }).format(simulated)} · Lacoste: {active ? 'activo' : 'fuera de vigencia'}{active && (failed.lacoste ? ' · No se pudo cargar la imagen de Awin; se muestra el enlace alternativo.' : lacosteLoaded ? ' · Banner 4969749 cargado.' : ' · Cargando banner 4969749 desde Awin…')}</p>}
   </section>;
 }

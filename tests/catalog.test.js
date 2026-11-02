@@ -22,8 +22,12 @@ test('category and search combine without mutating data', () => {
   assert.equal(filterProducts(sample, { query: 'cuidado', category: 'skin-care' }).length, 1);
   assert.equal(sample.length, 1);
 });
-test('empty confirmed catalog and approved host image', () => {
-  assert.deepEqual(products, []);
+test('first confirmed catalog entry and approved host image', () => {
+  assert.equal(products.length, 1);
+  assert.equal(products[0].slug, 'dermforce-face-cream');
+  assert.equal(products[0].category, 'skin-care');
+  assert.equal(filterProducts(products, { query: 'niacinamida', category: 'skin-care', need: 'hidratacion-facial' }).length, 1);
+  assert.equal(filterProducts(products, { category: 'grooming' }).length, 0);
   assert.deepEqual(filterProducts(products, { query: 'anything' }), []);
   assert.equal(host.image, '/images/hamburgueso/hamburgueso-presentando.png');
 });

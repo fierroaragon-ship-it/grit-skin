@@ -1,12 +1,29 @@
 export const categories = [
-  { id: 'skin-care', name: 'Skin Care', number: '01', image: null, description: { es: 'El cuidado diario empieza por tu piel.', en: 'Everyday care starts with your skin.' } },
-  { id: 'grooming', name: 'Grooming', number: '02', image: null, description: { es: 'Barba, cabello y detalles que cuentan.', en: 'Beard, hair and the details that matter.' } },
-  { id: 'mens-essentials', name: 'Men’s Essentials', number: '03', image: null, description: { es: 'Lo esencial para acompañar tu día.', en: 'Everyday essentials to keep you going.' } },
-  { id: 'smart-finds', name: 'Smart Finds', number: '04', image: null, description: { es: 'Ideas prácticas para hacer la vida más simple.', en: 'Practical finds to make life simpler.' } },
+  { id: 'skin-care', name: 'Skin Care', number: '01', image: '/images/categories/skin-care.png', imageWidth: 1451, imageHeight: 1084, imageAlt: { es: 'Envases sin marca para ilustrar el cuidado facial', en: 'Unbranded containers illustrating facial care' }, description: { es: 'El cuidado diario empieza por tu piel.', en: 'Everyday care starts with your skin.' } },
+  { id: 'grooming', name: 'Grooming', number: '02', image: '/images/categories/grooming.png', imageWidth: 1452, imageHeight: 1083, imageAlt: { es: 'Rastrillo, brocha, peine y frasco sin marca para ilustrar el arreglo personal', en: 'Unbranded razor, brush, comb and bottle illustrating grooming' }, description: { es: 'Barba, cabello y detalles que cuentan.', en: 'Beard, hair and the details that matter.' } },
+  { id: 'mens-essentials', name: 'Men’s Essentials', number: '03', image: '/images/categories/mens-essentials.png', imageWidth: 1451, imageHeight: 1084, imageAlt: { es: 'Cartera y accesorios personales sin marca sobre una superficie clara', en: 'Unbranded wallet and personal accessories on a light surface' }, description: { es: 'Lo esencial para acompañar tu día.', en: 'Everyday essentials to keep you going.' } },
+  { id: 'smart-finds', name: 'Smart Finds', number: '04', image: '/images/categories/smart-finds.png', imageWidth: 1452, imageHeight: 1083, imageAlt: { es: 'Dispositivos y accesorios sin marca para ilustrar hallazgos prácticos', en: 'Unbranded devices and accessories illustrating practical finds' }, description: { es: 'Ideas prácticas para hacer la vida más simple.', en: 'Practical finds to make life simpler.' } },
 ];
 
 // Solo productos confirmados. Consulta CATALOGO.md antes de añadir entradas.
-export const products = [];
+// Primera ficha: publicación solicitada por el usuario; procedencia en dermforce-source.md.
+export const products = [{
+  slug: 'dermforce-face-cream',
+  brand: 'Terez & Honor',
+  category: 'skin-care',
+  name: { es: 'Dermforce Face Cream', en: 'Dermforce Face Cream' },
+  description: { es: 'Crema facial hidratante para hombres, pensada para una rutina diaria sencilla.', en: 'A moisturizing face cream for men, designed for a simple daily routine.' },
+  features: {
+    es: ['Con niacinamida y bakuchiol.', 'Fórmula descrita como ligera y sin perfume.', 'Puede utilizarse después del afeitado.'],
+    en: ['With niacinamide and bakuchiol.', 'Formula described as lightweight and fragrance-free.', 'Can be used after shaving.']
+  },
+  needs: [{ id: 'hidratacion-facial', label: { es: 'Hidratación facial', en: 'Facial hydration' } }],
+  photos: [{ src: '/images/dermforce-face-cream-original.jpg', width: 1500, height: 2000, alt: { es: 'Envase original de Dermforce Face Cream de Terez & Honor', en: 'Original Terez & Honor Dermforce Face Cream packaging' } }],
+  store: 'Terez & Honor',
+  url: 'https://www.awin1.com/cread.php?awinmid=110224&awinaffid=3132227&ued=https%3A%2F%2Fterezandhonor.com%2Fes%2Fproducts%2Fdermforce-face-cream',
+  cta: 'product',
+  ctaLabel: { es: 'Ver precio y comprar en Terez & Honor', en: 'View price and buy at Terez & Honor' }
+}];
 export const host = {
   name: 'Hamburgueso',
   image: '/images/hamburgueso/hamburgueso-presentando.png',

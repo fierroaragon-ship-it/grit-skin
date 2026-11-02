@@ -88,3 +88,21 @@ Verificación: build correcto, 14 pruebas correctas (incluye orden en Inicio, au
 Se verificó que el proceso de 127.0.0.1:5173 usa este checkout y sirve los módulos actuales con DEV=true. La URL simulada del 8 de noviembre produce `1794160800000` y activa Lacoste; el renderizado específico incluye 4969749. Awin respondió con redirección y HTTP 200, JPEG real de 728 × 90, inspeccionado como archivo. No se pudo reproducir en navegador el problema tras recarga directa: la inicialización continúa fallando.
 
 Defecto confirmado y corregido: los enlaces internos y Limpiar filtros descartaban styleDate. Ahora lo conservan exclusivamente en desarrollo. El diagnóstico visible de desarrollo distingue campaña activa, imagen cargada y error de imagen; el error ofrece reintentar sin alterar la URL original de Awin. No cambia el diseño Adidas ni el creativo de Tienda. Cuatro pruebas específicas correctas; build y comprobación de exclusión de styleDate y diagnóstico del bundle de producción correctos. La carga de imagen y visibilidad reales en navegador siguen pendientes; la respuesta HTTP y el renderizado automatizado no equivalen a esa revisión.
+
+## Primera ficha · Dermforce (solo revisión local)
+
+Se incorpora una entrada real, `dermforce-face-cream`, de Terez & Honor en Skin Care y necesidad Hidratación facial. Sustituye el estado vacío en Inicio, Tienda y Skin Care; no se añade un segundo bloque destacado en Inicio. Se conserva búsqueda, categoría y necesidad sobre el mismo registro. Ruta individual: `/producto/dermforce-face-cream`.
+
+La fotografía original se sirve intacta desde `/images/dermforce-face-cream-original.jpg`. Procedencia, hash y permiso pendiente de publicación en `public/images/dermforce-source.md`. La foto enlaza al mismo destino Awin exacto que el botón coral «Ver precio y comprar en Terez & Honor», ambos con `sponsored noopener`. El aviso de afiliación global se mantiene. Se muestra aviso de envío internacional y posibles cargos de importación; sin importe ni moneda ambiguos, reseñas o promesas de resultados.
+
+Hamburgueso usa la pose de presentación aprobada en una columna independiente junto al borde lateral inferior del marco; en móvil pasa debajo. Se identifica como anfitrión Gritskin. Sin recortes, transformaciones ni superposición sobre foto, envase o etiqueta. Hero, cintas y materiales Awin permanecen.
+
+Comprobación: build y 17 pruebas correctos; renderizado bilingüe, ausencia de duplicados, enlaces exactos y filtros. La ficha y la fotografía responden localmente; no se pudo revisar visualmente escritorio o móvil por `Cannot redefine property: process` al inicializar el navegador. Sin commit, push ni deploy de esta ficha.
+
+## Publicación de portadas y primera ficha · 2 de noviembre de 2026
+
+El usuario solicita publicar los cambios aprobados, conservando Dermforce, las cuatro portadas, hero, cintas, Hamburgueso y Awin. Esta orden sustituye el alcance de revisión local de las notas anteriores. No se afirma haber verificado permiso del titular de la fotografía; se registra la procedencia y la autorización de publicación del usuario en `public/images/dermforce-source.md`.
+
+Portadas locales de `Gritskin_Portadas_Sin_Marca.zip`: PNG originales intactos con dimensiones, texto alternativo bilingüe y carga diferida, en marcos comunes 4:3 sin recorte. Hashes y origen en `public/images/categories/ORIGEN.json`. Son ilustraciones editoriales de categorías; no se crean productos a partir de sus objetos.
+
+Los avisos cercanos a promociones Awin, Temu y Hotmart se simplifican a «Podemos recibir una comisión si compras desde estos enlaces.» / «We may earn a commission if you buy through these links.». Se conserva el recordatorio general de transparencia, enlaces patrocinados y vigencias Awin. La simulación y el diagnóstico siguen excluidos de producción.

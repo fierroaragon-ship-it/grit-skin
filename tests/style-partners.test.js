@@ -36,7 +36,7 @@ test('cards preserve exact affiliate URLs, image dimensions and remove expired c
     assert.ok(html.includes('width="336" height="280"'));
     assert.ok(html.includes('Del 6 al 12 de noviembre de 2026'));
     assert.ok(html.includes('20% de descuento en nueva colección'));
-    assert.ok(html.includes('Enlaces de afiliado: podemos recibir una comisión'));
+    assert.ok(html.includes('Podemos recibir una comisión si compras desde estos enlaces.'));
     for (const date of ['2026-11-05T23:59:59-06:00', '2026-11-13T00:00:00-06:00']) {
       const inactive = render(date);
       assert.ok(inactive.includes('style-grid-single'));

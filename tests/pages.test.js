@@ -5,7 +5,7 @@ import { createServer } from 'vite';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
-test('pages render in both languages with real images, working destinations and empty catalog', async () => {
+test('pages render in both languages with real images, working destinations and the first catalog product', async () => {
   const server = await createServer({ server: { middlewareMode: true, hmr: false, ws: false } });
   try {
     const { default: App } = await server.ssrLoadModule('/src/App.jsx');
@@ -17,7 +17,8 @@ test('pages render in both languages with real images, working destinations and 
         assert.ok(html.includes('Grit Skin'));
         const expectedPose = { '/': 'saludando', '/tienda': 'senalando-derecha', '/rutinas-y-guias': 'explicando', '/hamburgueso': 'presentando' }[pathname];
         const hostImages = [...html.matchAll(/<img[^>]+src="(\/images\/hamburgueso\/[^"]+)"/g)];
-        assert.equal(hostImages.length, expectedPose ? 1 : 0, 'limited mascot appearances');
+        const hasProduct = ['/', '/tienda', '/skin-care'].includes(pathname);
+        assert.equal(hostImages.length, (expectedPose ? 1 : 0) + (hasProduct ? 1 : 0), 'existing host plus product presenter');
         if (expectedPose) assert.equal(hostImages[0][1], `/images/hamburgueso/hamburgueso-${expectedPose}.png`);
 
         const nav = html.match(/<nav[^>]*id="main-nav"[^>]*>([\s\S]*?)<\/nav>/)[1];
@@ -52,7 +53,8 @@ test('pages render in both languages with real images, working destinations and 
           assert.ok(html.includes('id="grit-ribbons" class="ribbon-stage" aria-hidden="true"'));
           assert.ok(html.includes(lang === 'es' ? 'Pausar cintas' : 'Pause ribbons'));
           assert.ok(!html.includes('opacity:0'), 'content visible without animation');
-          assert.ok(html.includes(lang === 'es' ? 'Fotografía de categoría pendiente' : 'Category photograph pending'));
+          assert.ok(!html.includes(lang === 'es' ? 'Fotografía de categoría pendiente' : 'Category photograph pending'));
+          for (const name of ['skin-care', 'grooming', 'mens-essentials', 'smart-finds']) assert.ok(html.includes(`/images/categories/${name}.png`));
         }
         assert.ok(html.includes('href="/sobre-gritskin"'), 'about page linked in footer');
         if (pathname === '/sobre-gritskin') {
@@ -65,11 +67,12 @@ test('pages render in both languages with real images, working destinations and 
           assert.ok(!html.includes('Gritskin nace de la vida entre obra') && !html.includes('Gritskin comes from life across construction'));
         }
         assert.ok(!/href="#"/.test(html), 'no inert links');
-        assert.ok(!html.includes('Explora por necesidad') && !html.includes('Explore by need'), 'no unsupported need shortcuts');
+        assert.equal(html.includes(lang === 'es' ? 'Explora por necesidad' : 'Explore by need'), hasProduct, 'need shortcut backed by Dermforce');
         assert.ok(!/atomy|papu/i.test(html));
         assert.ok(html.includes('saltar al contenido') || html.includes('Saltar al contenido') || html.includes('Skip to content'));
         for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) if (!src.startsWith('https://www.awin1.com/cshow.php?')) assert.ok(existsSync(`public${src}`), src);
-        if (['/', '/skin-care', '/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes(lang === 'es' ? 'Selección en preparación' : 'Selection in progress'));
+        if (['/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes(lang === 'es' ? 'No encontramos coincidencias' : 'No matches found'));
+        assert.equal((html.match(/id="dermforce-face-cream"/g) || []).length, hasProduct ? 1 : 0, 'no duplicate product in a page');
         if (pathname.startsWith('/producto/')) assert.ok(html.includes(lang === 'es' ? 'Producto no disponible' : 'Product unavailable'));
         if (['/skin-care', '/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes('class="host-note"'), 'category host intro');
         if (pathname === '/') {

@@ -1,0 +1,45 @@
+{
+  "method": "image_gen built-in; precise-object-edit",
+  "images": [
+    {
+      "category": "skin-care",
+      "path": "/workspace/scratch/4a9066878526/generated_images/exec-43fc92e1-87c6-421f-ab57-ac75977783de.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached category-cover still-life photo. Make a surgical branding cleanup: remove ALL printing, brand names, GRIT/GRIT SKIN lettering, logos, engravings, embossed marks, numbers and product text FROM THE PHYSICAL OBJECTS and packaging, including partially cropped objects at the edges. Keep the physical paper labels as elegant completely blank labels, preserving their exact colors, texture and outlines. Reconstruct natural wood grain, leather grain, metal and plastic underneath removed engravings or marks. If a standalone Grit Skin editorial logo is printed on the BACKGROUND outside of the objects, preserve that standalone background signature exactly. Preserve ALL objects, their exact count, shapes, locations, size, framing, camera angle, warm ivory limestone, linen, dried plants, graphite/amber/wood tones, premium natural photographic lighting and shadows. Do not restyle, replace, add or remove any objects, do not add people, do not add text. Output only the edited full image with the same landscape aspect ratio as the reference. Opaque photograph.",
+      "dimensions": [
+        1451,
+        1084
+      ],
+      "sha256": "95b18242bb00de74ed5f00630ca958d334779cd710af32fa7b0999aea7bdeef0"
+    },
+    {
+      "category": "grooming",
+      "path": "/workspace/scratch/4a9066878526/generated_images/exec-fb7c4884-2b4e-4d09-81e6-4055ea50c7a0.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached category-cover still-life photo. Make a surgical branding cleanup: remove ALL printing, brand names, GRIT/GRIT SKIN lettering, logos, engravings, embossed marks, numbers and product text FROM THE PHYSICAL OBJECTS and packaging, including partially cropped objects at the edges. Keep the physical paper labels as elegant completely blank labels, preserving their exact colors, texture and outlines. Reconstruct natural wood grain, leather grain, metal and plastic underneath removed engravings or marks. If a standalone Grit Skin editorial logo is printed on the BACKGROUND outside of the objects, preserve that standalone background signature exactly. Preserve ALL objects, their exact count, shapes, locations, size, framing, camera angle, warm ivory limestone, linen, dried plants, graphite/amber/wood tones, premium natural photographic lighting and shadows. Do not restyle, replace, add or remove any objects, do not add people, do not add text. Output only the edited full image with the same landscape aspect ratio as the reference. Opaque photograph.",
+      "dimensions": [
+        1452,
+        1083
+      ],
+      "sha256": "f65d287c10fff13f19d3ea46daa7bc40d15ed2ffef3f15ca273ce9fa82fd4254"
+    },
+    {
+      "category": "mens-essentials",
+      "path": "/workspace/scratch/4a9066878526/generated_images/exec-cf95442a-9928-4c5d-b634-ac46d0cfa499.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached category-cover still-life photo. Make a surgical branding cleanup: remove ALL printing, brand names, GRIT/GRIT SKIN lettering, logos, engravings, embossed marks, numbers and product text FROM THE PHYSICAL OBJECTS and packaging, including partially cropped objects at the edges. Keep the physical paper labels as elegant completely blank labels, preserving their exact colors, texture and outlines. Reconstruct natural wood grain, leather grain, metal and plastic underneath removed engravings or marks. If a standalone Grit Skin editorial logo is printed on the BACKGROUND outside of the objects, preserve that standalone background signature exactly. Preserve ALL objects, their exact count, shapes, locations, size, framing, camera angle, warm ivory limestone, linen, dried plants, graphite/amber/wood tones, premium natural photographic lighting and shadows. Do not restyle, replace, add or remove any objects, do not add people, do not add text. Output only the edited full image with the same landscape aspect ratio as the reference. Opaque photograph.",
+      "dimensions": [
+        1451,
+        1084
+      ],
+      "sha256": "6d87ed9c353d1bb265652b503f03059d10b82e89b9a0f88c173c43dfc246d35d"
+    },
+    {
+      "category": "smart-finds",
+      "path": "/workspace/scratch/4a9066878526/generated_images/exec-4af69a8d-061b-4c0e-b3dc-32ba948ac720.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached category-cover still-life photo. Make a surgical branding cleanup: remove ALL printing, brand names, GRIT/GRIT SKIN lettering, logos, engravings, embossed marks, numbers and product text FROM THE PHYSICAL OBJECTS and packaging, including partially cropped objects at the edges. Keep the physical paper labels as elegant completely blank labels, preserving their exact colors, texture and outlines. Reconstruct natural wood grain, leather grain, metal and plastic underneath removed engravings or marks. If a standalone Grit Skin editorial logo is printed on the BACKGROUND outside of the objects, preserve that standalone background signature exactly. Preserve ALL objects, their exact count, shapes, locations, size, framing, camera angle, warm ivory limestone, linen, dried plants, graphite/amber/wood tones, premium natural photographic lighting and shadows. Do not restyle, replace, add or remove any objects, do not add people, do not add text. Output only the edited full image with the same landscape aspect ratio as the reference. Opaque photograph.",
+      "dimensions": [
+        1452,
+        1083
+      ],
+      "sha256": "a0931bd9e96d90614ce81543ee566346fa6eaadaa775048977581bac31967302"
+    }
+  ]
+}

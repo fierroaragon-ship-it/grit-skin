@@ -19,6 +19,6 @@ export default function StyleAccessories({ lang, search }) {
         </div>
       </article>)}
     </div>
-    <p className="style-disclosure">{spanish ? 'Enlaces de afiliado: podemos recibir una comisión por las compras realizadas a través de estos enlaces. La compra se realiza en el sitio de cada marca.' : 'Affiliate links: we may receive a commission for purchases made through these links. Purchases take place on each brand’s website.'}</p>
+    <p className="style-disclosure">{spanish ? 'Podemos recibir una comisión si compras desde estos enlaces.' : 'We may earn a commission if you buy through these links.'}</p>
   </section>;
 }

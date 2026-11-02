@@ -55,3 +55,36 @@ Compilación de producción y diez pruebas automatizadas: resolución de rutas, 
 ## Imágenes de categorías
 
 Cada entrada de `categories` admite `image`, inicialmente `null`. Guardar la fotografía de categoría autorizada en `public/images/` y asignar su ruta en este campo. Hasta entonces Inicio muestra un bloque tipográfico grande con aviso de fotografía pendiente, sin simular un producto.
+
+## Estilo y accesorios · Awin MX
+
+Bloque exclusivo de `/tienda`, entre Temu y el catálogo. Adidas es acceso permanente a la marca sin descuento ni caducidad; Lacoste Singles’ Day solo aparece desde el 6 de noviembre de 2026 a las 00:00 hasta antes del 13 de noviembre de 2026 a las 00:00, en America/Mexico_City (UTC−06:00). Los instantes absolutos están en `src/data/stylePartners.js`. El componente revisa el reloj en ejecución, programa las transiciones y se actualiza al recuperar foco o visibilidad; no requiere recompilar ni desplegar. Al ocultarse Lacoste se elimina su tarjeta del DOM y Adidas ocupa una composición de una tarjeta.
+
+Creatividades y enlaces proporcionados por el usuario: imágenes remotas originales de Awin, parámetros íntegros, sin recorte, filtros, deformación ni texto superpuesto. Adidas se muestra a 260 px como máximo y Lacoste a 336 × 280 como máximo. Imagen y botón comparten destino, con `sponsored noopener noreferrer`. Incluye aviso de afiliados junto al bloque.
+
+Revisión local:
+
+- Fecha real: http://127.0.0.1:5173/tienda
+- Ambas tarjetas (solo desarrollo): http://127.0.0.1:5173/tienda?styleDate=2026-11-08T12%3A00%3A00-06%3A00#estilo-y-accesorios
+- Antes del inicio: `?styleDate=2026-11-05T23%3A59%3A59-06%3A00`
+- Al finalizar: `?styleDate=2026-11-13T00%3A00%3A00-06%3A00`
+
+La simulación requiere `import.meta.env.DEV` y una fecha con zona explícita; el build de producción elimina el lector de `styleDate`. No usar la simulación para publicar ofertas anticipadas.
+
+Verificación de esta integración: `npm run build`, `node --test tests/*.test.js` (13 pruebas) y `git diff --check` correctos. Pruebas de límites, simulación deshabilitada en producción, renderizado y conservación exacta de URLs. La revisión visual de escritorio/móvil no pudo ejecutarse: el navegador falla durante inicialización con `Cannot redefine property: process`. No se considera visualmente aprobada. Sin commit, push ni deploy.
+
+## Materiales Awin en Inicio
+
+Inicio incorpora un único bloque compacto después de las cintas: banner Lacoste horizontal original de 728 × 90 (creativo `s=4969749`), centrado y responsivo, solo durante la misma vigencia de Tienda; logo Adidas de ancho 120 px con botón permanente. No se modifica el hero ni las cintas. `useLacosteSchedule.js` comparte entre ambas páginas el control de vigencia y la simulación exclusiva de desarrollo; Tienda conserva su banner de 336 × 280 (`s=4969747`). Las imágenes mantienen sus URLs originales y proporciones, con aviso de afiliación y enlaces patrocinados. Ante fallo de carga, el banner se sustituye por enlace de texto y el logo se retira conservando título y botón.
+
+Inicio normal: http://127.0.0.1:5173/
+
+Ambos materiales en desarrollo: http://127.0.0.1:5173/?styleDate=2026-11-08T12%3A00%3A00-06%3A00
+
+Verificación: build correcto, 14 pruebas correctas (incluye orden en Inicio, ausencia de duplicados, URLs y conservación del creativo de Tienda), simulación excluida del bundle de producción y respuesta HTTP 200 local. La revisión visual en navegador sigue pendiente por el fallo de inicialización ya documentado. Sin commit, push ni deploy.
+
+### Diagnóstico de Lacoste en Inicio
+
+Se verificó que el proceso de 127.0.0.1:5173 usa este checkout y sirve los módulos actuales con DEV=true. La URL simulada del 8 de noviembre produce `1794160800000` y activa Lacoste; el renderizado específico incluye 4969749. Awin respondió con redirección y HTTP 200, JPEG real de 728 × 90, inspeccionado como archivo. No se pudo reproducir en navegador el problema tras recarga directa: la inicialización continúa fallando.
+
+Defecto confirmado y corregido: los enlaces internos y Limpiar filtros descartaban styleDate. Ahora lo conservan exclusivamente en desarrollo. El diagnóstico visible de desarrollo distingue campaña activa, imagen cargada y error de imagen; el error ofrece reintentar sin alterar la URL original de Awin. No cambia el diseño Adidas ni el creativo de Tienda. Cuatro pruebas específicas correctas; build y comprobación de exclusión de styleDate y diagnóstico del bundle de producción correctos. La carga de imagen y visibilidad reales en navegador siguen pendientes; la respuesta HTTP y el renderizado automatizado no equivalen a esa revisión.

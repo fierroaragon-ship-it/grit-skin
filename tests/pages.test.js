@@ -68,7 +68,7 @@ test('pages render in both languages with real images, working destinations and 
         assert.ok(!html.includes('Explora por necesidad') && !html.includes('Explore by need'), 'no unsupported need shortcuts');
         assert.ok(!/atomy|papu/i.test(html));
         assert.ok(html.includes('saltar al contenido') || html.includes('Saltar al contenido') || html.includes('Skip to content'));
-        for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) assert.ok(existsSync(`public${src}`), src);
+        for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) if (!src.startsWith('https://www.awin1.com/cshow.php?')) assert.ok(existsSync(`public${src}`), src);
         if (['/', '/skin-care', '/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes(lang === 'es' ? 'Selección en preparación' : 'Selection in progress'));
         if (pathname.startsWith('/producto/')) assert.ok(html.includes(lang === 'es' ? 'Producto no disponible' : 'Product unavailable'));
         if (['/skin-care', '/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes('class="host-note"'), 'category host intro');

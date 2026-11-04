@@ -106,3 +106,17 @@ El usuario solicita publicar los cambios aprobados, conservando Dermforce, las c
 Portadas locales de `Gritskin_Portadas_Sin_Marca.zip`: PNG originales intactos con dimensiones, texto alternativo bilingüe y carga diferida, en marcos comunes 4:3 sin recorte. Hashes y origen en `public/images/categories/ORIGEN.json`. Son ilustraciones editoriales de categorías; no se crean productos a partir de sus objetos.
 
 Los avisos cercanos a promociones Awin, Temu y Hotmart se simplifican a «Podemos recibir una comisión si compras desde estos enlaces.» / «We may earn a commission if you buy through these links.». Se conserva el recordatorio general de transparencia, enlaces patrocinados y vigencias Awin. La simulación y el diagnóstico siguen excluidos de producción.
+
+## Tres fichas Terez & Honor · versión aprobada del 3 de noviembre de 2026
+
+Catálogo único de tres productos, presentes en Inicio, Tienda y Skin Care, con ficha individual:
+
+- `/producto/dermforce-face-cream`
+- `/producto/caffeine-hyaluronic-acid-eye-gel-patch`
+- `/producto/grooming-essentials-pack` (la ruta anterior `/producto/the-essential-care-set` resuelve al mismo registro).
+
+Textos aprobados en español y traducciones al inglés: gancho, descripción, ingredientes o contenido y opinión editorial claramente identificada. Marca y nombres reales visibles; enlaces Awin completos y avisos conservados. El kit enlaza también a los parches individuales.
+
+Fotografías comerciales originales completas. Hamburgueso desvelado acompaña los parches; el kit usa la ilustración del mini Corvette de 1424 × 1105, intacta y con transparencia. Procedencias en `public/images/eye-patches-source.md` y `public/images/essential-care-set-source.md`. Cada bloque del personaje ocupa todo el ancho debajo de foto e información, centrado con frase HTML de 18 px. Poses verticales de 410 px en escritorio y 310 px en móvil; mini Corvette a 600 px como máximo y ancho adaptable. Bienvenidas, guías y página Hamburgueso también conservan el aumento de presencia aprobado.
+
+Hero, cintas, portadas, promociones, vigencias y configuración Vercel conservados. Archivos personales, entradas duplicadas, dependencias y temporales excluidos del commit.

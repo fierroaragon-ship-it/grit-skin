@@ -27,7 +27,7 @@ test('Dermforce renders once per intended page, uses separate presenter and resp
       assert.equal((html.match(/id="dermforce-face-cream"/g) || []).length, 1);
       const expectedHref = `href="${affiliate.replaceAll('&', '&amp;')}" target="_blank" rel="sponsored noopener"`;
       assert.equal(html.split(expectedHref).length - 1, 2, 'image and CTA share exact affiliate destination');
-      assert.ok(html.includes('Características según el fabricante'));
+      assert.ok(html.includes('¿Qué trae y qué hace aquí?'));
       assert.ok(html.includes('Envío internacional a México. Consulta costos de envío y posibles cargos de importación.'));
       assert.ok(html.includes('Ver precio y comprar en Terez &amp; Honor'));
       assert.ok(html.includes('width="1500" height="2000"'));

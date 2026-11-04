@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { createServer } from 'vite';
+import { products } from '../src/data/catalog.js';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -18,7 +19,7 @@ test('pages render in both languages with real images, working destinations and 
         const expectedPose = { '/': 'saludando', '/tienda': 'senalando-derecha', '/rutinas-y-guias': 'explicando', '/hamburgueso': 'presentando' }[pathname];
         const hostImages = [...html.matchAll(/<img[^>]+src="(\/images\/hamburgueso\/[^"]+)"/g)];
         const hasProduct = ['/', '/tienda', '/skin-care'].includes(pathname);
-        assert.equal(hostImages.length, (expectedPose ? 1 : 0) + (hasProduct ? 1 : 0), 'existing host plus product presenter');
+        assert.equal(hostImages.length, (expectedPose ? 1 : 0) + (hasProduct ? 3 : 0), 'existing host plus product presenter');
         if (expectedPose) assert.equal(hostImages[0][1], `/images/hamburgueso/hamburgueso-${expectedPose}.png`);
 
         const nav = html.match(/<nav[^>]*id="main-nav"[^>]*>([\s\S]*?)<\/nav>/)[1];
@@ -67,6 +68,13 @@ test('pages render in both languages with real images, working destinations and 
           assert.ok(!html.includes('Gritskin nace de la vida entre obra') && !html.includes('Gritskin comes from life across construction'));
         }
         assert.ok(!/href="#"/.test(html), 'no inert links');
+        if (hasProduct) for (const product of products) {
+          const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#x27;');
+          assert.equal(html.split(`id="${product.slug}"`).length - 1, 1);
+          for (const value of [product.name[lang], product.description[lang], product.hook[lang], product.featureTitle[lang], product.editorial[lang], ...product.features[lang]]) assert.ok(html.includes(escape(value)), value);
+          assert.ok(html.includes(`href="${escape(product.url)}" target="_blank" rel="sponsored noopener"`));
+        }
+
         assert.equal(html.includes(lang === 'es' ? 'Explora por necesidad' : 'Explore by need'), hasProduct, 'need shortcut backed by Dermforce');
         assert.ok(!/atomy|papu/i.test(html));
         assert.ok(html.includes('saltar al contenido') || html.includes('Saltar al contenido') || html.includes('Skip to content'));

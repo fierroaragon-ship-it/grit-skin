@@ -357,10 +357,6 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
 .ribbon-logo { display: block; flex-shrink: 0; width: 100px; height: auto; aspect-ratio: 1431 / 1099; object-fit: contain; margin: 0 8px; }
 .motion-ribbons.is-paused .ribbon-track { animation-play-state: paused; }
 @keyframes ribbon-travel { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.category-enter .category-visual, .category-enter h3 { animation: category-arrive .65s cubic-bezier(.2,.7,.3,1); }
-.category-enter h3 { animation-delay: .08s; }
-.category-visual-card:focus-within .category-visual, .category-visual-card:focus-within h3 { animation: none; }
-@keyframes category-arrive { from { transform: translateY(18px); } to { transform: translateY(0); } }
 @media (max-width: 600px) {
   .ribbon-controls { align-items: flex-start; gap: 14px; flex-direction: column; }
   .ribbon-group { gap: 24px; padding: 20px 12px; }
@@ -369,7 +365,7 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
   .ribbon-band-1 { margin-top: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ribbon-track, .ribbon-band-1 .ribbon-track, .category-enter .category-visual, .category-enter h3 { animation: none; transform: none; }
+  .ribbon-track, .ribbon-band-1 .ribbon-track { animation: none; transform: none; }
   .ribbon-band { width: 100%; margin-left: 0; transform: none; }
   .ribbon-track { width: 100%; }
   .ribbon-group { flex-wrap: wrap; justify-content: center; width: 100%; min-width: 0; gap: 18px; }
@@ -595,3 +591,27 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
 /* Las fotos de producto fallidas conservan un aviso breve, sin reservar altura. */
 .product-photo-error { padding: 12px; font-size: 14px; line-height: 1.5; color: var(--muted); background: var(--stone); }
 .product-specification-note { font-size: 14px; line-height: 1.6; }
+
+/* Movimiento puntual: el contenido no espera oculto a JavaScript. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1 { animation: hero-title-arrive 650ms ease-out; }
+  /* No supera el encuadre actual ni añade recorte. */
+  .hero-photo { animation: hero-photo-arrive 1200ms ease-out; transform-origin: center; }
+}
+@keyframes hero-title-arrive {
+  from { opacity: .78; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-photo-arrive {
+  from { transform: scale(.995); }
+  to { transform: scale(1); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .category-visual-card .category-visual img,
+  .product-card > a:first-child img { transition: transform 300ms ease-out; transform-origin: center; }
+  .category-visual-card:hover .category-visual img,
+  .product-card > a:first-child:hover img { transform: scale(1.015); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

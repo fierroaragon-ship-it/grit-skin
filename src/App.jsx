@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useCardEntrance from './useCardEntrance.js';
 import StyleAccessories from './StyleAccessories.jsx';
 import HomePartners from './HomePartners.jsx';
 import BrandPartners from './BrandPartners.jsx';
@@ -94,22 +95,7 @@ function MotionRibbons({ lang }) {
   </section>;
 }
 function CategoryBlocks({ lang }) {
-  const grid = useRef(null);
-  useEffect(() => {
-    if (typeof window.matchMedia !== 'function') return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduced.matches || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('category-enter');
-          observer.unobserve(entry.target);
-        }
-      }
-    }, { threshold: 0.12 });
-    grid.current?.querySelectorAll('.category-visual-card').forEach(card => observer.observe(card));
-    return () => observer.disconnect();
-  }, []);
+  const grid = useCardEntrance();
   return <div ref={grid} className="category-grid category-visual-grid">{categories.map(category => <Link key={category.id} href={`/${category.id}`} className="category-card category-visual-card">
     <div className="category-visual">{category.image ? <Photo src={category.image} alt={category.imageAlt?.[lang] || category.name} width={category.imageWidth} height={category.imageHeight} loading="lazy" /> : <><span className="category-display-number" aria-hidden="true">{category.number}</span><span className="category-image-pending">{lang === 'es' ? 'Fotografía de categoría pendiente' : 'Category photograph pending'}</span></>}</div>
     <div className="category-card-copy"><span className="kicker">GRIT SKIN / {category.number}</span><h3>{category.name}</h3><p>{category.description[lang]}</p><span className="category-action">{lang === 'es' ? 'Explorar categoría' : 'Explore category'} <span aria-hidden="true">↗</span></span></div>
@@ -180,6 +166,7 @@ function Catalog({ lang, t, category, search }) {
   const needs = availableNeeds(products, selected);
   const need = params.get('need') || '';
   const shown = filterProducts(products, { query, category: selected, need }, lang);
+  const grid = useCardEntrance(shown.map(product => product.slug).join(','));
   function update(key, value) {
     const next = new URLSearchParams(location.search);
     value ? next.set(key, value) : next.delete(key);
@@ -193,7 +180,7 @@ function Catalog({ lang, t, category, search }) {
     {category && <p className="category-description">{category.description[lang]}</p>}
     {needs.length > 0 && <div className="needs"><p className="filter-heading">{lang === 'es' ? 'Explora por necesidad' : 'Explore by need'}</p><div className="need-options"><button type="button" aria-pressed={!need} onClick={() => update('need', '')}>{lang === 'es' ? 'Todas' : 'All'}</button>{needs.map(item => <button type="button" key={item.id} aria-pressed={need === item.id} onClick={() => update('need', item.id)}>{item.label[lang]}</button>)}</div></div>}
     <form className="filters" role="search" onSubmit={e => e.preventDefault()}><label>{t.search}<div className="search-field"><span aria-hidden="true">⌕</span><input type="search" value={query} placeholder={t.placeholder} onChange={e => update('q', e.target.value)} /></div></label><label>{t.filter}<select value={selected} onChange={e => update('category', e.target.value)} disabled={Boolean(category)}><option value="">{t.all}</option>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select></label></form>
-    {shown.length ? <div className={`product-grid${shown.length === 1 ? ' product-grid-single' : ''}`}>{shown.map(product => <ProductCard key={product.slug} product={product} lang={lang} t={t} />)}</div> : <div className="empty-state"><span className="empty-icon" aria-hidden="true">◇</span><p className="kicker">GRIT SKIN</p><h3>{products.length ? t.noResults : t.preparing}</h3><p>{products.length ? t.noResultsText : t.preparingText}</p>{(query || need || (!category && selected)) && <button className="button outline" onClick={reset}>{t.reset}</button>}</div>}
+    {shown.length ? <div ref={grid} className={`product-grid${shown.length === 1 ? ' product-grid-single' : ''}`}>{shown.map(product => <ProductCard key={product.slug} product={product} lang={lang} t={t} />)}</div> : <div className="empty-state"><span className="empty-icon" aria-hidden="true">◇</span><p className="kicker">GRIT SKIN</p><h3>{products.length ? t.noResults : t.preparing}</h3><p>{products.length ? t.noResultsText : t.preparingText}</p>{(query || need || (!category && selected)) && <button className="button outline" onClick={reset}>{t.reset}</button>}</div>}
   </section>;
 }
 function TemuBenefits({ lang }) {

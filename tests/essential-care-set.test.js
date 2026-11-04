@@ -17,7 +17,7 @@ test('set preserves identity, original image and existing products without dupli
   assert.equal(product.officialName, 'The Essential Care Set');
   assert.equal(product.formerName, 'Grooming Essentials Pack');
   assert.equal(product.price, undefined);
-  assert.equal(new Set(products.map(p => p.slug)).size, 3);
+  assert.equal(new Set(products.map(p => p.slug)).size, 8);
   assert.ok(products.some(p => p.slug === 'dermforce-face-cream'));
   assert.ok(products.some(p => p.slug === 'caffeine-hyaluronic-acid-eye-gel-patch'));
   assert.equal(product.presenter, '/images/hamburgueso/hamburgueso-mini-corvette.png');
@@ -30,13 +30,13 @@ test('set preserves identity, original image and existing products without dupli
     assert.equal(filterProducts(products, { query, category: 'skin-care' })[0].slug, slug);
   }
 });
-test('set renders once in intended pages in both languages with independent illustration and sponsored links', async () => {
+test('set details preserve both languages, illustration and sponsored links', async () => {
   const server = await createServer({ server: { middlewareMode: true, hmr: false, ws: false } });
   try {
     const { default: App } = await server.ssrLoadModule('/src/App.jsx');
     for (const lang of ['es', 'en']) {
       globalThis.localStorage = { getItem: () => lang };
-      for (const pathname of ['/', '/tienda', '/skin-care', `/producto/${slug}`]) {
+      for (const pathname of [`/producto/${slug}`]) {
         globalThis.location = { pathname, search: '' };
         const html = renderToStaticMarkup(React.createElement(App));
         const feature = html.match(new RegExp(`<article class="dermforce-feature" id="${slug}">[\\s\\S]*?<\\/article>`))?.[0];
@@ -46,7 +46,7 @@ test('set renders once in intended pages in both languages with independent illu
         if (!pathname.startsWith('/producto/')) assert.ok(feature.includes(`href="/producto/${slug}"`));
         assert.ok(feature.includes('Grooming Essentials Pack'));
         assert.equal(html.split(`id="${slug}"`).length - 1, 1);
-        const href = `href="${affiliate.replaceAll('&', '&amp;')}" target="_blank" rel="sponsored noopener"`;
+        const href = `href="${affiliate.replaceAll('&', '&amp;')}" target="_blank" rel="sponsored noopener noreferrer"`;
         assert.equal(feature.split(href).length - 1, 2);
         const photo = feature.match(/<a class="dermforce-photo-frame"[\s\S]*?<\/a>/)[0];
         assert.ok(photo.includes(product.photos[0].src));

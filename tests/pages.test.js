@@ -18,8 +18,9 @@ test('pages render in both languages with real images, working destinations and 
         assert.ok(html.includes('Grit Skin'));
         const expectedPose = { '/': 'saludando', '/tienda': 'senalando-derecha', '/rutinas-y-guias': 'explicando', '/hamburgueso': 'presentando' }[pathname];
         const hostImages = [...html.matchAll(/<img[^>]+src="(\/images\/hamburgueso\/[^"]+)"/g)];
-        const hasProduct = ['/', '/tienda', '/skin-care'].includes(pathname);
-        assert.equal(hostImages.length, (expectedPose ? 1 : 0) + (hasProduct ? 3 : 0), 'existing host plus product presenter');
+        const pageProducts = products.filter(product => pathname === '/tienda' || pathname === `/${product.category}`);
+        const hasProduct = pageProducts.length > 0;
+        assert.equal(hostImages.length, (expectedPose ? 1 : 0), 'existing host plus product presenter');
         if (expectedPose) assert.equal(hostImages[0][1], `/images/hamburgueso/hamburgueso-${expectedPose}.png`);
 
         const nav = html.match(/<nav[^>]*id="main-nav"[^>]*>([\s\S]*?)<\/nav>/)[1];
@@ -68,19 +69,19 @@ test('pages render in both languages with real images, working destinations and 
           assert.ok(!html.includes('Gritskin nace de la vida entre obra') && !html.includes('Gritskin comes from life across construction'));
         }
         assert.ok(!/href="#"/.test(html), 'no inert links');
-        if (hasProduct) for (const product of products) {
+        if (hasProduct) for (const product of pageProducts) {
           const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#x27;');
           assert.equal(html.split(`id="${product.slug}"`).length - 1, 1);
-          for (const value of [product.name[lang], product.description[lang], product.hook[lang], product.featureTitle[lang], product.editorial[lang], ...product.features[lang]]) assert.ok(html.includes(escape(value)), value);
-          assert.ok(html.includes(`href="${escape(product.url)}" target="_blank" rel="sponsored noopener"`));
+          for (const value of [product.name[lang], product.hook[lang]]) assert.ok(html.includes(escape(value)), value);
+          assert.ok(html.includes(`href="${escape(product.url)}" target="_blank" rel="sponsored noopener noreferrer"`));
         }
 
-        assert.equal(html.includes(lang === 'es' ? 'Explora por necesidad' : 'Explore by need'), hasProduct, 'need shortcut backed by Dermforce');
+        assert.equal(html.includes(lang === 'es' ? 'Explora por necesidad' : 'Explore by need'), hasProduct, 'need shortcuts belong to searchable catalogs');
         assert.ok(!/atomy|papu/i.test(html));
         assert.ok(html.includes('saltar al contenido') || html.includes('Saltar al contenido') || html.includes('Skip to content'));
-        for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) if (!src.startsWith('https://www.awin1.com/cshow.php?')) assert.ok(existsSync(`public${src}`), src);
-        if (['/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes(lang === 'es' ? 'No encontramos coincidencias' : 'No matches found'));
-        assert.equal((html.match(/id="dermforce-face-cream"/g) || []).length, hasProduct ? 1 : 0, 'no duplicate product in a page');
+        for (const [, src] of html.matchAll(/<img[^>]+src="([^"]+)"/g)) if (!src.startsWith('https://')) assert.ok(existsSync(`public${src}`), src);
+        if (['/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) { assert.ok(html.includes('class="section category-guide"')); assert.ok(!html.includes('class="empty-state"')); }
+        assert.equal((html.match(/id="dermforce-face-cream"/g) || []).length, pageProducts.some(product => product.slug === 'dermforce-face-cream') ? 1 : 0, 'no duplicate product in a page');
         if (pathname.startsWith('/producto/')) assert.ok(html.includes(lang === 'es' ? 'Producto no disponible' : 'Product unavailable'));
         if (['/skin-care', '/grooming', '/mens-essentials', '/smart-finds'].includes(pathname)) assert.ok(html.includes('class="host-note"'), 'category host intro');
         if (pathname === '/') {
@@ -95,7 +96,7 @@ test('pages render in both languages with real images, working destinations and 
         if (pathname === '/hamburgueso') assert.ok(html.includes(lang === 'es' ? 'Hamburgueso pa’ los compas.' : 'Hamburgueso, for the amigos.'));
         assert.ok(html.includes(lang === 'es' ? 'enlaces de afiliados' : 'affiliate links'));
       }
-      globalThis.location = { pathname: '/', search: '?q=prueba&category=grooming' };
+      globalThis.location = { pathname: '/tienda', search: '?q=prueba&category=grooming' };
       const filtered = renderToStaticMarkup(React.createElement(App));
       assert.ok(filtered.includes('value="prueba"'));
       assert.ok(filtered.includes('value="grooming" selected=""'));

@@ -575,3 +575,23 @@ select:disabled { color: var(--muted); opacity: 1; border-color: var(--stone); }
 .lacoste-tote img { display: block; width: 468px; max-width: 100%; height: auto; object-fit: contain; }
 .lacoste-tote p { margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
 .lacoste-tote p a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Listados breves; las explicaciones y presentadores viven en las fichas. */
+.product-card > a:first-child { display: block; }
+.product-card img { display: block; width: 100%; height: 260px; object-fit: contain; }
+.product-card > .button { margin-top: 16px; }
+.product-card > .text-link { display: block; }
+.catalog > .button { margin-top: 28px; }
+.category-navigation { display: flex; flex-wrap: wrap; gap: 12px; }
+.category-page-cover { display: block; width: min(100%, 680px); height: auto; margin: 28px 0; border-radius: 16px; }
+.category-guide { max-width: 1000px; }
+.category-guide li { margin: 16px 0; line-height: 1.7; }
+.category-guide .category-navigation { margin-top: 32px; }
+
+/* Inicio: continuidad entre las categorías y las marcas. */
+#categorias { padding-bottom: 32px; }
+#categorias + .home-partners { padding-top: 16px; }
+
+/* Las fotos de producto fallidas conservan un aviso breve, sin reservar altura. */
+.product-photo-error { padding: 12px; font-size: 14px; line-height: 1.5; color: var(--muted); background: var(--stone); }
+.product-specification-note { font-size: 14px; line-height: 1.6; }

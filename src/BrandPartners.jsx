@@ -12,6 +12,7 @@ export default function BrandPartners({ lang, search, placement = 'home' }) {
   const lacosteImage = 'https://www.awin1.com/cshow.php?s=4969749&v=32585&q=606120&r=3132227';
   const promotion = spanish ? 'Lacoste · Singles’ Day · Del 6 al 12 de noviembre de 2026' : 'Lacoste · Singles’ Day · November 6–12, 2026';
   return <section className={`home-partners${placement === 'footer' ? ' brands-before-footer' : ''}`} id={placement === 'footer' ? 'marcas' : 'marcas-inicio'} aria-label={spanish ? 'Estilo y accesorios' : 'Style and accessories'}>
+    <h2>{spanish ? 'Estilo y accesorios' : 'Style and accessories'}</h2>
     {visible && <div className="home-lacoste">
       <p className="partner-campaign-state">{upcoming ? (spanish ? 'Próxima promoción · Disponible del 6 al 12 de noviembre' : 'Upcoming promotion · Available November 6–12') : (spanish ? 'Promoción vigente · Del 6 al 12 de noviembre' : 'Promotion active · November 6–12')}<span>{spanish ? '2026 · Hora de Ciudad de México' : '2026 · Mexico City time'}</span>{upcoming && <span>{spanish ? 'Promoción aún no vigente.' : 'Promotion not yet active.'}</span>}</p>
       <PartnerImage image={lacosteImage} url={lacosteUrl} alt={promotion} width={728} height={90} retryLabel={spanish ? 'Reintentar cargar banner' : 'Retry loading banner'} fallbackText={upcoming ? (spanish ? 'Conoce Lacoste' : 'Explore Lacoste') : (spanish ? 'Ver promoción en Lacoste' : 'View promotion on Lacoste')} />

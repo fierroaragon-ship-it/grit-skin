@@ -13,7 +13,7 @@ test('Dermforce preserves exact deep link and has no unverified price or reviews
   assert.equal(products[0].rating, undefined);
   assert.equal(products[0].features.es.length, 3);
 });
-test('Dermforce renders once per intended page, uses separate presenter and respects filters', async () => {
+test('Dermforce detail preserves full content and presenter; catalog respects filters', async () => {
   const server = await createServer({ server: { middlewareMode: true, hmr: false, ws: false } });
   try {
     const { default: App } = await server.ssrLoadModule('/src/App.jsx');
@@ -22,10 +22,10 @@ test('Dermforce renders once per intended page, uses separate presenter and resp
       globalThis.location = { pathname, search };
       return renderToStaticMarkup(React.createElement(App));
     };
-    for (const pathname of ['/', '/tienda', '/skin-care', '/producto/dermforce-face-cream']) {
+    for (const pathname of ['/producto/dermforce-face-cream']) {
       const html = render(pathname);
       assert.equal((html.match(/id="dermforce-face-cream"/g) || []).length, 1);
-      const expectedHref = `href="${affiliate.replaceAll('&', '&amp;')}" target="_blank" rel="sponsored noopener"`;
+      const expectedHref = `href="${affiliate.replaceAll('&', '&amp;')}" target="_blank" rel="sponsored noopener noreferrer"`;
       assert.equal(html.split(expectedHref).length - 1, 2, 'image and CTA share exact affiliate destination');
       assert.ok(html.includes('¿Qué trae y qué hace aquí?'));
       assert.ok(html.includes('Envío internacional a México. Consulta costos de envío y posibles cargos de importación.'));

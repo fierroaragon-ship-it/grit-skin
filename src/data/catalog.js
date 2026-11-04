@@ -1,3 +1,5 @@
+import { accessoryProducts } from './accessoryProducts.js';
+
 export const categories = [
   { id: 'skin-care', name: 'Skin Care', number: '01', image: '/images/categories/skin-care.png', imageWidth: 1451, imageHeight: 1084, imageAlt: { es: 'Envases sin marca para ilustrar el cuidado facial', en: 'Unbranded containers illustrating facial care' }, description: { es: 'El cuidado diario empieza por tu piel.', en: 'Everyday care starts with your skin.' } },
   { id: 'grooming', name: 'Grooming', number: '02', image: '/images/categories/grooming.png', imageWidth: 1452, imageHeight: 1083, imageAlt: { es: 'Rastrillo, brocha, peine y frasco sin marca para ilustrar el arreglo personal', en: 'Unbranded razor, brush, comb and bottle illustrating grooming' }, description: { es: 'Barba, cabello y detalles que cuentan.', en: 'Beard, hair and the details that matter.' } },
@@ -224,7 +226,8 @@ export const products = [
       "es": "Lo elegiría si me interesan los tres cuidados juntos. Si solo buscas hidratar los ojos, revisa los parches por separado. Comprar con cabeza también es verse bien, compa.",
       "en": "I’d choose it if I wanted all three kinds of care together. If you’re only looking to hydrate the eye area, check out the patches on their own. Shopping smart is part of looking good, amigo."
     }
-  }
+  },
+  ...accessoryProducts
 ];
 export const host = {
   name: 'Hamburgueso',
@@ -242,7 +245,7 @@ export function externalUrl(value) {
 export function filterProducts(items, { query = '', category = '', need = '' } = {}, lang = 'es') {
   const normalize = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const needle = normalize(query.trim());
-  return items.filter(p => (!category || p.category === category) && (!need || p.needs?.some(n => n.id === need)) && normalize([p.slug, p.name[lang], p.officialName || p.originalName || '', p.formerName || '', p.description[lang], p.store, ...(p.features[lang] || [])].join(' ')).includes(needle));
+  return items.filter(p => (!category || p.category === category) && (!need || p.needs?.some(n => n.id === need)) && normalize([p.slug, p.model || '', p.color?.[lang] || '', p.name[lang], p.officialName || p.originalName || '', p.formerName || '', p.description[lang], p.store, ...(p.features[lang] || [])].join(' ')).includes(needle));
 }
 export function resolvePage(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';

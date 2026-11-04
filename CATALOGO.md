@@ -120,3 +120,17 @@ Textos aprobados en español y traducciones al inglés: gancho, descripción, in
 Fotografías comerciales originales completas. Hamburgueso desvelado acompaña los parches; el kit usa la ilustración del mini Corvette de 1424 × 1105, intacta y con transparencia. Procedencias en `public/images/eye-patches-source.md` y `public/images/essential-care-set-source.md`. Cada bloque del personaje ocupa todo el ancho debajo de foto e información, centrado con frase HTML de 18 px. Poses verticales de 410 px en escritorio y 310 px en móvil; mini Corvette a 600 px como máximo y ancho adaptable. Bienvenidas, guías y página Hamburgueso también conservan el aumento de presencia aprobado.
 
 Hero, cintas, portadas, promociones, vigencias y configuración Vercel conservados. Archivos personales, entradas duplicadas, dependencias y temporales excluidos del commit.
+
+## Marcas compartidas · revisión local pendiente de publicación
+
+`BrandPartners.jsx` comparte el bloque compacto entre Inicio y el espacio antes del footer en categorías, las tres fichas, guías, Hamburgueso y Sobre Gritskin. Tienda conserva Estilo y accesorios con 4969747 rectangular; las demás páginas usan 4969749 horizontal en ancho adaptable. No se duplican bloques ni avisos dentro del bloque. El creativo 4969774 sigue excluido hasta confirmar vigencia.
+
+Lacoste se muestra como próxima promoción antes del 6 de noviembre de 2026, activa del 6 al 12 y se retira al comenzar el 13, America/Mexico_City. El control compartido actualiza al recuperar foco y visibilidad, y en los límites de vigencia. Adidas 3716681 mantiene la URL remota original, con respaldo local intacto y retirada de imagen si ambas fuentes fallan; el botón se conserva. Sin altura mínima de imagen ni estiramiento de tarjetas para evitar huecos al fallar.
+
+Build y 24 pruebas correctos, incluyendo ambas lenguas, unicidad por página, tres estados temporales, URLs exactas y transición remota/local/fallo. La revisión visual de escritorio y móvil no se pudo realizar: el navegador falla con `Cannot redefine property: process`. HTTP 200 y renderizado automatizado no equivalen a verificación visual. Sin commit, push ni deploy de esta corrección.
+
+## Publicación de marcas y Tote Bag · 3 de noviembre de 2026
+
+El usuario autoriza publicar el conjunto pendiente de marcas y añadir 4969774, 468 × 60, una sola vez en cada bloque de marcas, en Inicio, Tienda y las demás páginas. Campaña independiente de Singles’ Day: no lleva ni hereda fechas de inicio o caducidad. Condición proporcionada: tote bag chica de regalo en compras desde $4,500 en Nueva Colección. Se muestra junto al enlace discreto a `https://www.lacoste.com/mx/TermsandConditionsSAS.html` para consultar vigencia, disponibilidad y condiciones. Las fechas de otras promociones históricas de esa página no se atribuyen al creativo actual.
+
+La imagen remota original y el enlace Awin se conservan completos: `s=4969774&v=32585&q=606680&r=3132227`. Verificación del original: HTTP 200, JPEG de 468 × 60. El destino redirige a Nueva Colección Hombre, pero devolvió HTTP 403 al cliente de comprobación; no se sustituye ni altera el enlace por ello. El fallo de imagen conserva un enlace de texto sin reservar altura de banner. Se mantiene un único aviso breve junto a cada bloque de marcas. Esta autorización sustituye las restricciones de revisión local de las correcciones anteriores.

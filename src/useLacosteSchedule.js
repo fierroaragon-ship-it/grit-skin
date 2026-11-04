@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { developmentDate, isLacosteActive, LACOSTE_START, LACOSTE_END } from './data/stylePartners.js';
+import { developmentDate, lacostePhase, LACOSTE_START, LACOSTE_END } from './data/stylePartners.js';
 
 export default function useLacosteSchedule(search) {
   const simulated = import.meta.env.DEV ? developmentDate(search, true) : null;
@@ -20,5 +20,6 @@ export default function useLacosteSchedule(search) {
     document.addEventListener('visibilitychange', refresh);
     return () => { clearTimeout(timer); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', refresh); };
   }, [simulated]);
-  return { simulated, active: isLacosteActive(simulated ?? now) };
+  const phase = lacostePhase(simulated ?? now);
+  return { simulated, phase, active: phase === 'active', upcoming: phase === 'upcoming', visible: phase !== 'expired' };
 }
